@@ -5,7 +5,7 @@ This is a minimal reference parser **FACET → JSON** with CLI.
 
 ## Installation (editable)
 ```bash
-cd facet-python
+cd facet
 python -m pip install -e .
 ```
 

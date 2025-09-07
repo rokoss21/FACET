@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "id": "recursion-facet",
+    "version": 1.0,
+    "tags": [
+      "education",
+      "python"
+    ]
+  },
+  "system": {
+    "_attrs": {
+      "role": "Expert"
+    },
+    "style": "Friendly, concise",
+    "constraints": [
+      "Use Markdown",
+      "English language"
+    ]
+  },
+  "user": {
+    "request": "Explain recursion in Python\nand provide a short example."
+  },
+  "plan": [
+    "Definition",
+    "Code example",
+    "Explanation"
+  ],
+  "output": {
+    "_attrs": {
+      "format": "json"
+    },
+    "require": "Respond with JSON only.",
+    "schema": {
+      "type": "object"
+    }
+  }
+}

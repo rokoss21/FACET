@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "id": "test-extended",
+    "version": 1.0
+  },
+  "system": {
+    "style": "Polite, helpful",
+    "apply_style": "Polite, helpful",
+    "timestamp": {
+      "_type": "timestamp",
+      "value": "2024-01-01T12:00:00Z"
+    },
+    "duration": {
+      "_type": "duration",
+      "value": 5,
+      "unit": "m"
+    },
+    "size": {
+      "_type": "size",
+      "value": 1024,
+      "unit": "KB"
+    },
+    "pattern": {
+      "_type": "regex",
+      "pattern": "test",
+      "flags": "i"
+    }
+  },
+  "user": {
+    "request": "Test extended features",
+    "data": [
+      "item1",
+      "item2"
+    ]
+  },
+  "output": {
+    "format": "json"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "_attrs": {
+      "id": "complex-test",
+      "version": 1.0
+    },
+    "title": "Complex FACET Test",
+    "description": "This is a comprehensive test of FACET features:\n- Multiple facets with attributes\n- All data types and extended scalars\n- Anchors and aliases\n- Lenses with pipelines\n- Nested structures\n- JSON schema validation",
+    "author": "Test Generator",
+    "tags": [
+      "test",
+      "complex"
+    ],
+    "created": {
+      "_type": "timestamp",
+      "value": "2024-12-07T15:00:00Z"
+    }
+  },
+  "system": {
+    "_attrs": {
+      "role": "Expert"
+    },
+    "name": "Test Assistant",
+    "version": 1.0,
+    "style": "Test Assistant",
+    "capabilities": [
+      "analysis",
+      "code",
+      "math"
+    ],
+    "timeout": {
+      "_type": "duration",
+      "value": 60,
+      "unit": "s"
+    },
+    "memory": {
+      "_type": "size",
+      "value": 256,
+      "unit": "MB"
+    }
+  },
+  "assistant": {
+    "role": "Helper",
+    "prompt": "You are a helpful assistant.\nProvide accurate and useful responses."
+  },
+  "user": {
+    "query": "Test FACET parsing",
+    "data": {
+      "format": "json",
+      "size": 1024
+    }
+  },
+  "plan": [
+    "Parse input",
+    "Process request",
+    "Generate response"
+  ],
+  "output": {
+    "_attrs": {
+      "format": "json",
+      "required": true
+    },
+    "description": "Response schema",
+    "schema": {
+      "type": "object",
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "result": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

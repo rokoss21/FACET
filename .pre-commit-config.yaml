@@ -1,0 +1,89 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
+
+repos:
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: check-case-conflict
+
+  # Python hooks
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        args: ["--max-line-length=100", "--extend-ignore=E203,W503"]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-all]
+        args: ["--ignore-missing-imports"]
+
+  # FACET-specific hooks
+  - repo: local
+    hooks:
+      - id: facet-lint
+        name: FACET Lint
+        entry: python3 -m facet.cli lint
+        language: system
+        files: \.facet$
+        pass_filenames: true
+
+      - id: facet-validate
+        name: FACET Validate
+        entry: python3 -m facet.cli validate
+        language: system
+        files: \.facet$
+        pass_filenames: true
+
+      - id: check-facet-json-consistency
+        name: Check FACET-JSON Consistency
+        entry: python3 -c "
+import sys
+import json
+from pathlib import Path
+from facet import parser
+
+facet_file = Path(sys.argv[1])
+if facet_file.exists():
+    with open(facet_file, 'r', encoding='utf-8') as f:
+        content = f.read()
+    json_output = parser.to_json(content)
+    parsed = json.loads(json_output)
+    print(f'✓ {facet_file.name}: Valid FACET -> JSON')
+"
+        language: system
+        files: \.facet$
+        pass_filenames: true

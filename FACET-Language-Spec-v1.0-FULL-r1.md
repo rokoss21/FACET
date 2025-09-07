@@ -389,15 +389,15 @@ Errors **SHOULD** include a caret snippet for quick diagnosis.
   role: "Expert programmer"
   constraints:
     - "Use Markdown"
-    - "Russian language"
+    - "English language"
 
 @user
-  request: "Объясни рекурсию в Python"
+  request: "Explain recursion in Python"
 
 @plan
-  - "Определение"
-  - "Пример кода"
-  - "Пояснение"
+  - "Definition"
+  - "Code example"
+  - "Explanation"
 
 @output(format="json")
   require: "Return JSON only."
@@ -418,8 +418,8 @@ Errors **SHOULD** include a caret snippet for quick diagnosis.
 ```facet
 @user
   request: """
-      Объясни рекурсию в Python
-      и приведи короткий пример.
+      Explain recursion in Python
+      and provide a short example.
   """
     |> dedent |> trim |> limit(200)
 ```
@@ -427,11 +427,11 @@ Errors **SHOULD** include a caret snippet for quick diagnosis.
 ### 16.3 Anchors & Aliases
 ```facet
 @system
-  style &teachy: "Учебный, дружелюбный"
+  style &teachy: "Educational, friendly"
   constraints:
-    - "Короткие примеры"
+    - "Short examples"
 
 @assistant
   style: *teachy
-  prompt: "Следуй плану и верни JSON по схеме."
+  prompt: "Follow the plan and return JSON according to the schema."
 ```

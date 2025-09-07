@@ -1,0 +1,93 @@
+/* FACET Documentation Custom Styles */
+
+/* Code blocks styling */
+.highlight pre,
+.codehilite pre {
+  border-radius: 0.3rem;
+}
+
+/* FACET language highlighting */
+.language-facet .highlight {
+  background-color: #f8f9fa;
+}
+
+/* Custom admonitions */
+.md-typeset .admonition.facet-tip {
+  border-left-color: #0066cc;
+}
+
+.md-typeset .admonition.facet-tip>.admonition-title:before {
+  background-color: #0066cc;
+  mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>');
+}
+
+/* Table improvements */
+.md-typeset table:not([class]) {
+  border-radius: 0.3rem;
+  overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+/* Custom syntax highlighting for FACET */
+.language-facet .nv { /* facet names */
+  color: #2e8b57;
+  font-weight: bold;
+}
+
+.language-facet .nb { /* attributes */
+  color: #8b4513;
+}
+
+.language-facet .s2 { /* quoted strings */
+  color: #a52a2a;
+}
+
+.language-facet .s { /* triple quoted strings */
+  color: #a52a2a;
+}
+
+.language-facet .o { /* operators like |> */
+  color: #ff4500;
+  font-weight: bold;
+}
+
+/* Improve navigation */
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+/* Custom footer styling */
+.md-footer {
+  background-color: var(--md-default-fg-color--light);
+}
+
+/* Responsive improvements */
+@media screen and (max-width: 76.1875em) {
+  .md-nav--primary .md-nav__title {
+    background-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+  }
+}
+
+/* Print styles */
+@media print {
+  .md-nav,
+  .md-sidebar,
+  .md-footer,
+  .md-header {
+    display: none !important;
+  }
+
+  .md-main__inner {
+    margin: 0;
+  }
+
+  .md-content {
+    margin: 0;
+    max-width: none;
+  }
+}
