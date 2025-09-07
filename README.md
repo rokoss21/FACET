@@ -653,10 +653,17 @@ prompt_data = parser.parse_facet(content)
 
 ### 📖 More Examples
 
-For additional examples and detailed documentation, see:
-- **[`examples/README.md`](./examples/README.md)** — Complete examples guide
-- **[`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)** — Full specification with examples
+For additional examples and documentation, see:
+- **[`examples/README.md`](./examples/README.md)** — Complete examples guide with 6 use cases
+- **[`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)** — Language specification and grammar
+- **[`specs/FACET-SPEC-v1.0-r1.md`](./specs/FACET-SPEC-v1.0-r1.md)** — Quick reference specification
 - **[GitHub Repository](https://github.com/rokoss21/FACET)** — Latest examples and community contributions
+
+### 🚀 Future Documentation
+- 📚 **MkDocs Site** - Professional documentation site (planned)
+- 📖 **API Reference** - Detailed Python SDK documentation (planned)
+- 🎓 **Tutorials** - Step-by-step learning guides (planned)
+- 🍳 **Cookbook** - Real-world patterns and recipes (planned)
 
 ---
 
@@ -727,9 +734,9 @@ Structured errors recommended (code, message, location):
 - ✅ **`facet validate`** - Schema validation against `@output` contracts
 
 #### 📚 Python SDK
-- ✅ **Python API** - Complete `facet` package with parser and CLI
-- ✅ **PyPI Distribution** - `pip install facet-lang`
-- ✅ **Type Hints** - Full type annotations for IDE support
+- ✅ **Python API** - `facet` package with parser and CLI functionality
+- ✅ **PyPI Distribution** - `pip install facet-lang` available
+- ✅ **Type Hints** - Type annotations for better IDE support
 - ✅ **Error Handling** - Structured error codes and messages
 
 #### 🎨 Built-in Lenses
@@ -743,10 +750,11 @@ Structured errors recommended (code, message, location):
 - ✅ **`json_parse`** - Parse JSON strings to objects
 
 #### 📖 Documentation & Examples
-- ✅ **Complete Specification** - FACET v1.0 full spec (200+ pages)
-- ✅ **Interactive Examples** - 6 comprehensive use cases
-- ✅ **MkDocs Site** - Professional documentation hosting
-- ✅ **CONTRIBUTING.md** - Developer onboarding guide
+- ✅ **Language Specification** - FACET v1.0 formal grammar and rules
+- ✅ **Interactive Examples** - 6 comprehensive use cases with working code
+- ✅ **MkDocs Setup** - Documentation infrastructure prepared (rokoss21.github.io/FACET)
+- ✅ **CONTRIBUTING.md** - Complete developer onboarding guide
+- 🚀 **Extended Documentation** - Planned comprehensive guides and tutorials
 
 ### 🔄 In Progress
 
@@ -807,10 +815,11 @@ Structured errors recommended (code, message, location):
 - 🚀 **Pre-commit Hooks** - Automated quality checks
 
 #### 📚 Learning & Education
-- 🚀 **Interactive Tutorial** - Web-based FACET playground
-- 🚀 **Video Course** - Comprehensive learning materials
-- 🚀 **Cookbook** - Real-world recipes and patterns
-- 🚀 **Migration Guides** - Converting from YAML/JSON/TOML
+- 🚀 **Interactive Tutorial** - Web-based FACET playground (planned)
+- 🚀 **Video Course** - Comprehensive learning materials (planned)
+- 🚀 **Cookbook** - Real-world patterns and recipes (planned)
+- 🚀 **Migration Guides** - Converting from YAML/JSON/TOML (planned)
+- 🚀 **API Reference** - Complete Python SDK documentation (planned)
 
 ### 📅 Release Timeline
 
@@ -844,8 +853,8 @@ Have a question or want to share an idea?
 
 - **💬 [GitHub Discussions](https://github.com/rokoss21/FACET/discussions):** Best place for questions, feature proposals, and sharing what you've built with FACET
 - **🐛 [GitHub Issues](https://github.com/rokoss21/FACET/issues):** For reporting bugs and tracking development tasks
-- **📖 [Documentation](https://github.com/rokoss21/FACET/tree/main/docs):** Comprehensive guides and API reference
-- **📚 [Full Documentation](https://rokoss21.github.io/FACET/):** MkDocs-powered documentation site
+- **📖 [Documentation](https://github.com/rokoss21/FACET/tree/main/docs):** Current guides and examples
+- **📚 [Future Documentation](https://rokoss21.github.io/FACET/):** Planned MkDocs site (coming soon)
 
 ### Stay Connected
 - **⭐ Star** this repository to show your support
