@@ -20,12 +20,37 @@
 [![PyPI downloads](https://img.shields.io/pypi/dm/facet-lang.svg)](https://pypi.org/project/facet-lang/)
 [![Python versions](https://img.shields.io/pypi/pyversions/facet-lang.svg)](https://pypi.org/project/facet-lang/)
 [![License](https://img.shields.io/pypi/l/facet-lang.svg)](https://github.com/rokoss21/FACET/blob/main/LICENSE)
+[![CI](https://github.com/rokoss21/FACET/actions/workflows/ci.yml/badge.svg)](https://github.com/rokoss21/FACET/actions/workflows/ci.yml)
+[![Coverage](https://codecov.io/gh/rokoss21/FACET/branch/main/graph/badge.svg)](https://codecov.io/gh/rokoss21/FACET)
 
 [![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)
 [![status](https://img.shields.io/badge/status-final-success)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md#editorial--normative-updates-in-r1)
 [![mime](https://img.shields.io/badge/MIME-application%2Ffacet-blue)](#-media-type)
 [![ext](https://img.shields.io/badge/ext-.facet-blueviolet)](#-file-extension)
 [![author](https://img.shields.io/badge/author-Emil%20Rokossovskiy-0aa)](#-author)
+
+---
+
+## 📋 Table of Contents
+
+- [✨ What is FACET?](#-what-is-facet)
+- [⚡ Quickstart: Your First FACET in 60 Seconds](#-quickstart-your-first-facet-in-60-seconds)
+- [🚀 Why FACET?](#-why-facet)
+- [⚖️ Comparison with Alternatives](#️-comparison-with-alternatives)
+- [🧩 Core Concepts](#-core-concepts)
+- [🛠 CLI Usage](#-cli-usage)
+- [🎯 Use Cases](#-use-cases)
+- [🧪 Examples](#-examples)
+- [📦 Project Layout](#-project-layout)
+- [🧷 Lenses (built‑ins)](#-lenses-built‑ins)
+- [🧭 Canonicalization (FACET → JSON)](#-canonicalization-facet--json)
+- [❗ Errors & Diagnostics](#-errors--diagnostics)
+- [🔐 Security](#-security)
+- [🗺️ Roadmap](#️-roadmap)
+- [🤝 Contributing](#-contributing)
+- [💬 Community & Support](#-community--support)
+- [👤 Author](#-author)
+- [📄 License](#-license)
 
 ---
 
@@ -290,6 +315,41 @@ facet to-json greeting.facet
 ```
 
 **Congratulations!** 🎉 You've just created your first FACET document and converted it to canonical JSON. This demonstrates the core FACET features: **facets**, **attributes**, and **guaranteed canonical JSON output**.
+
+### 📺 See FACET in Action
+
+Here's what the CLI workflow looks like:
+
+```bash
+# Create a simple FACET file
+echo '@user(name="Alice")
+  greeting: "Hello from FACET!"
+  active: true
+
+@output
+  schema: {"type": "object", "required": ["greeting"]}' > demo.facet
+
+# Convert to JSON
+facet to-json demo.facet
+
+# Output:
+# {
+#   "user": {
+#     "_attrs": {"name": "Alice"},
+#     "greeting": "Hello from FACET!",
+#     "active": true
+#   },
+#   "output": {
+#     "_attrs": {},
+#     "schema": {"type": "object", "required": ["greeting"]}
+#   }
+# }
+
+# Validate the file
+facet lint demo.facet  # OK: demo.facet
+```
+
+**Try it yourself!** Copy the FACET code above and run it locally.
 
 ---
 
@@ -687,6 +747,7 @@ Have a question or want to share an idea?
 - **💬 [GitHub Discussions](https://github.com/rokoss21/FACET/discussions):** Best place for questions, feature proposals, and sharing what you've built with FACET
 - **🐛 [GitHub Issues](https://github.com/rokoss21/FACET/issues):** For reporting bugs and tracking development tasks
 - **📖 [Documentation](https://github.com/rokoss21/FACET/tree/main/docs):** Comprehensive guides and API reference
+- **📚 [Full Documentation](https://rokoss21.github.io/FACET/):** MkDocs-powered documentation site
 
 ### Stay Connected
 - **⭐ Star** this repository to show your support
@@ -698,9 +759,23 @@ Have a question or want to share an idea?
 
 ## 👤 Author
 
-**Emil Rokossovskiy** — [@rokoss21](https://github.com/rokoss21)  
-📧 ecsiar@gmail.com  
+**Emil Rokossovskiy** — [@rokoss21](https://github.com/rokoss21)
+📧 ecsiar@gmail.com
 © 2025 Emil Rokossovskiy
+
+---
+
+## 🌟 Support FACET
+
+If you find FACET useful, please consider:
+
+- **⭐ Star** this repository to show your support
+- **🔄 Fork** to contribute your own improvements
+- **📣 Share** FACET with your network
+- **🤝 Contribute** via pull requests or issues
+- **💬 Discuss** ideas in GitHub Discussions
+
+**Your support helps FACET grow and become the standard for AI-first configuration!** 🚀
 
 ---
 
