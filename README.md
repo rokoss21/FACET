@@ -917,3 +917,4 @@ The MIT License is a permissive open source license that allows:
 - ✅ **Private use** - You can use the software privately
 - ⚠️ **Liability** - No warranty or liability from the author
 - ⚠️ **Trademark** - No trademark rights granted
+
