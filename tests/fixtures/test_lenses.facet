@@ -1,0 +1,6 @@
+@user
+  message: """
+    Hello,   world!
+    This has extra spaces.
+  """
+    |> dedent |> squeeze_spaces |> trim

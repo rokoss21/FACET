@@ -1,0 +1,4 @@
+@system
+  style &polite: "Polite and helpful"
+  personality: *polite
+  greeting: "Hello"
