@@ -3,8 +3,7 @@ import re
 import textwrap
 
 
-class LensError(Exception):
-    ...
+class LensError(Exception): ...
 
 
 def _ensure_str(v, name):

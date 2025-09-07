@@ -1,6 +1,7 @@
 """
 Golden tests for FACET parser - validates exact canonical JSON output.
 """
+
 import json
 from pathlib import Path
 
