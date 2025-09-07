@@ -1,0 +1,72 @@
+@config(name="DatabaseConfig", version="1.2")
+  description: "Production database configuration with validation"
+  environment: "production"
+  last_updated: "2024-01-15"
+
+@database
+  host: "prod-db-cluster.us-east-1.rds.amazonaws.com"
+  port: 5432
+  name: "myapp_production"
+  ssl_mode: "require"
+  connection_pool:
+    min_connections: 10
+    max_connections: 100
+    connection_timeout: 30
+    idle_timeout: 300
+  credentials:
+    username: "{{DB_USER}}"
+    password: "{{DB_PASSWORD}}"
+  schema: "public"
+
+@cache
+  type: "redis"
+  host: "prod-cache.us-east-1.elasticache.amazonaws.com"
+  port: 6379
+  password: "{{REDIS_PASSWORD}}"
+  db: 0
+  ttl:
+    default: 3600
+    session: 86400
+    user_data: 7200
+
+@external_services
+  payment_gateway:
+    provider: "stripe"
+    api_key: "{{STRIPE_SECRET_KEY}}"
+    webhook_secret: "{{STRIPE_WEBHOOK_SECRET}}"
+    timeout: 30
+
+  email_service:
+    provider: "sendgrid"
+    api_key: "{{SENDGRID_API_KEY}}"
+    from_email: "noreply@myapp.com"
+    templates:
+      welcome: "d-123456789"
+      password_reset: "d-987654321"
+
+  cdn:
+    provider: "cloudflare"
+    api_token: "{{CLOUDFLARE_API_TOKEN}}"
+    zone_id: "{{CLOUDFLARE_ZONE_ID}}"
+
+@monitoring
+  enabled: true
+  metrics:
+    database_query_time: true
+    cache_hit_rate: true
+    api_response_time: true
+  alerts:
+    - {type: "database_connection_error", threshold: 5, window: "5m"}
+    - {type: "high_cpu_usage", threshold: 85, window: "10m"}
+
+@security
+  cors_origins:
+    - "https://myapp.com"
+    - "https://app.myapp.com"
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 1000
+    burst_limit: 100
+  encryption:
+    algorithm: "AES-256-GCM"
+    key_rotation_days: 90

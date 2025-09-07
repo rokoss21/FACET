@@ -1,0 +1,144 @@
+@workflow(name="DataProcessingPipeline", version="2.0")
+  description: "ETL pipeline for customer analytics"
+  trigger: "scheduled"
+  schedule: "0 */4 * * *"  # Every 4 hours
+  timeout: 3600  # 1 hour max execution
+  retry_policy:
+    max_attempts: 3
+    backoff: "exponential"
+    base_delay: 60
+
+@step(name="extract", order=1)
+  description: "Extract customer data from multiple sources"
+  type: "parallel"
+  timeout: 900
+
+  @source(name="database")
+    type: "postgresql"
+    query: """
+    SELECT
+      customer_id,
+      email,
+      signup_date,
+      last_login,
+      total_orders,
+      lifetime_value
+    FROM customers
+    WHERE updated_at >= '{{last_run_time}}'
+    """
+      |> dedent |> trim |> normalize_newlines
+    connection: "{{DB_CONNECTION_STRING}}"
+
+  @source(name="api")
+    type: "rest"
+    url: "https://api.customer-service.com/customers"
+    method: "GET"
+    headers:
+      Authorization: "Bearer {{API_TOKEN}}"
+      Content-Type: "application/json"
+    params:
+      since: "{{last_run_time}}"
+      limit: 1000
+
+  @transform
+    filter_null_emails: true
+    deduplicate_by: "customer_id"
+    validate_schema: true
+
+@step(name="transform", order=2, depends_on="extract")
+  description: "Clean and enrich customer data"
+  type: "sequential"
+  timeout: 1800
+
+  @transform(name="normalize_emails")
+    type: "lens"
+    field: "email"
+    operations:
+      - lower
+      - trim
+      - regex_replace: ["/\\+.*@/", "@"]
+
+  @transform(name="calculate_segments")
+    type: "conditional"
+    conditions:
+      - field: "lifetime_value"
+        operator: ">"
+        value: 1000
+        result: "high_value"
+      - field: "total_orders"
+        operator: ">="
+        value: 5
+        result: "loyal"
+      - field: "signup_date"
+        operator: "<"
+        value: "2023-01-01"
+        result: "early_adopter"
+    default: "new"
+
+  @transform(name="enrich_demographics")
+    type: "enrichment"
+    source: "demographics_api"
+    match_field: "email"
+    fields:
+      - age_group
+      - location
+      - interests
+
+@step(name="load", order=3, depends_on="transform")
+  description: "Load processed data to data warehouse"
+  type: "parallel"
+  timeout: 600
+
+  @destination(name="data_warehouse")
+    type: "snowflake"
+    table: "customer_analytics"
+    mode: "upsert"
+    key_fields: ["customer_id"]
+    connection: "{{SNOWFLAKE_CONNECTION}}"
+
+  @destination(name="cache")
+    type: "redis"
+    key_pattern: "customer:{customer_id}"
+    ttl: 86400  # 24 hours
+    connection: "{{REDIS_CONNECTION}}"
+
+@step(name="validate", order=4, depends_on="load")
+  description: "Quality assurance and alerting"
+  type: "sequential"
+  timeout: 300
+
+  @validation(name="row_count")
+    type: "count"
+    source: "data_warehouse"
+    expected_min: 100
+    alert_threshold: 50
+
+  @validation(name="data_quality")
+    type: "schema"
+    source: "data_warehouse"
+    schema:
+      customer_id: {type: "string", pattern: "^cust_[a-zA-Z0-9]{24}$"}
+      email: {type: "string", format: "email"}
+      segment: {type: "string", enum: ["high_value", "loyal", "early_adopter", "new"]}
+
+  @notification(name="success")
+    condition: "all_validations_pass"
+    channels: ["slack", "email"]
+    template: "Data pipeline completed successfully. Processed {{row_count}} customers."
+
+  @notification(name="failure")
+    condition: "any_validation_fails"
+    channels: ["slack", "pagerduty", "email"]
+    priority: "high"
+    template: "Data pipeline failed: {{validation_errors}}"
+
+@monitoring
+  metrics:
+    - step_duration
+    - data_volume
+    - error_rate
+  dashboards:
+    - type: "grafana"
+      url: "https://monitoring.company.com/d/pipeline-overview"
+    - type: "datadog"
+      dashboard_id: "pipeline-performance"

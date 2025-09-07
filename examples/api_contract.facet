@@ -1,0 +1,66 @@
+@api(name="UserService", version="1.0")
+  description: "User management service with authentication"
+  base_url: "https://api.example.com"
+  timeout: 30
+  retry_policy:
+    max_attempts: 3
+    backoff: "exponential"
+    base_delay: 1.0
+
+@endpoint(path="/users", method="POST")
+  description: "Create new user account"
+  authentication: "bearer_token"
+  rate_limit: "100/hour"
+
+  @request
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer {{token}}"
+    body:
+      type: "object"
+      required: ["email", "name"]
+      properties:
+        email: {type: "string", format: "email"}
+        name: {type: "string", minLength: 2, maxLength: 100}
+        preferences: {type: "object", additionalProperties: true}
+
+  @response(status=201)
+    description: "User created successfully"
+    headers:
+      Content-Type: "application/json"
+      Location: "/users/{{user_id}}"
+    body:
+      type: "object"
+      properties:
+        user_id: {type: "string", pattern: "^user_[a-zA-Z0-9]{24}$"}
+        email: {type: "string", format: "email"}
+        name: {type: "string"}
+        created_at: {type: "string", format: "date-time"}
+        status: {type: "string", enum: ["active", "pending_verification"]}
+
+  @response(status=400)
+    description: "Validation error"
+    body:
+      type: "object"
+      properties:
+        error: {type: "string", enum: ["validation_error", "duplicate_email"]}
+        details: {type: "object"}
+
+@endpoint(path="/users/{user_id}", method="GET")
+  description: "Get user profile"
+  authentication: "bearer_token"
+
+  @path_params
+    user_id: {type: "string", pattern: "^user_[a-zA-Z0-9]{24}$"}
+
+  @response(status=200)
+    body:
+      type: "object"
+      properties:
+        user_id: {type: "string"}
+        email: {type: "string"}
+        name: {type: "string"}
+        profile: {type: "object"}
+        preferences: {type: "object"}
+        created_at: {type: "string", format: "date-time"}
+        updated_at: {type: "string", format: "date-time"}

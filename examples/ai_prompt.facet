@@ -1,0 +1,56 @@
+@system(role="Code Reviewer", version=1)
+  style: "Thorough, constructive, professional"
+  constraints:
+    - "Use markdown formatting"
+    - "Focus on maintainability and best practices"
+    - "Provide specific examples when suggesting improvements"
+    - "Consider edge cases and error handling"
+  temperature: 0.1
+  max_tokens: 2000
+
+@user
+  task: "Review this Python function for production readiness"
+  code: """
+def process_user_data(user_id, data):
+    if user_id is None:
+        return {"error": "Invalid user ID"}
+
+    # Process data
+    result = {"user_id": user_id, "processed": True}
+    return result
+  """
+    |> dedent |> trim
+
+@output(format="json")
+  require: "Response must be valid JSON"
+  schema: """
+    {
+      "type": "object",
+      "required": ["overall_rating", "issues", "recommendations", "production_ready"],
+      "properties": {
+        "overall_rating": {
+          "type": "string",
+          "enum": ["excellent", "good", "needs_work", "critical_issues"]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "severity": {"type": "string", "enum": ["critical", "warning", "info"]},
+              "category": {"type": "string"},
+              "description": {"type": "string"},
+              "line_number": {"type": "integer"},
+              "suggestion": {"type": "string"}
+            }
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "production_ready": {"type": "boolean"}
+      }
+    }
+    """
+    |> dedent |> trim |> json_parse
