@@ -1,4 +1,4 @@
-#FACET — Feature‑Aware Contracted Extension for Text
+# FACET — Feature‑Aware Contracted Extension for Text
 **A deterministic markup language for AI instructions**
 
 [![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](./FACET-Language-Spec-v1.0-FULL-r1.md)
