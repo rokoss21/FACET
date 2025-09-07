@@ -1,4 +1,4 @@
-.PHONY: help install fmt lint validate examples json clean
+.PHONY: help install fmt lint validate examples json clean lint-md lint-md-fix
 
 PY=python
 PKG=facet
@@ -13,6 +13,8 @@ help:
 	@echo "  make json        - generate JSON for examples"
 	@echo "  make examples    - same as json"
 	@echo "  make clean       - remove generated JSON in examples"
+	@echo "  make lint-md     - lint all markdown files"
+	@echo "  make lint-md-fix - auto-fix markdown formatting"
 
 install:
 	$(PY) -m pip install -e .
@@ -44,3 +46,13 @@ json examples:
 clean:
 	@find examples -name '*.json' -delete 2>/dev/null || true
 	@echo "Cleaned generated JSON in examples/"
+
+lint-md:
+	@echo "📝 Linting Markdown files..."
+	@npx markdownlint-cli2 "**/*.md" || true
+	@echo "✅ Markdown linting complete"
+
+lint-md-fix:
+	@echo "🔧 Auto-fixing Markdown files..."
+	@npx markdownlint-cli2-fix "**/*.md" || true
+	@echo "✅ Markdown auto-fix complete"
