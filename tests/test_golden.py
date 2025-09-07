@@ -2,33 +2,37 @@
 Golden tests for FACET parser - validates exact canonical JSON output.
 """
 import json
-import pytest
 from pathlib import Path
+
+import pytest
 
 from facet import parser
 
 
 def load_facet_and_expected_json(facet_path: Path):
     """Load a .facet file and its corresponding .json file."""
-    with open(facet_path, 'r', encoding='utf-8') as f:
+    with open(facet_path, "r", encoding="utf-8") as f:
         facet_content = f.read()
 
-    json_path = facet_path.with_suffix('.json')
+    json_path = facet_path.with_suffix(".json")
     if not json_path.exists():
         pytest.skip(f"Expected JSON file {json_path} not found")
 
-    with open(json_path, 'r', encoding='utf-8') as f:
+    with open(json_path, "r", encoding="utf-8") as f:
         expected_json = json.load(f)
 
     return facet_content, expected_json
 
 
-@pytest.mark.parametrize("facet_file", [
-    "examples/recursion.facet",
-    "examples/test_extended.facet",
-    "examples/simplified_complex_test.facet",
-    "tests/complete_test.facet"
-])
+@pytest.mark.parametrize(
+    "facet_file",
+    [
+        "examples/recursion.facet",
+        "examples/test_extended.facet",
+        "examples/simplified_complex_test.facet",
+        "tests/complete_test.facet",
+    ],
+)
 def test_golden_output(facet_file):
     """Test that FACET files produce exact expected JSON output."""
     facet_path = Path(__file__).parent.parent / facet_file
@@ -52,7 +56,7 @@ def test_canonical_formatting():
     facet_file = Path(__file__).parent / "fixtures" / "test_formatting.facet"
     expected_file = Path(__file__).parent / "fixtures" / "test_formatting.json"
 
-    with open(facet_file, 'r', encoding='utf-8') as f:
+    with open(facet_file, "r", encoding="utf-8") as f:
         facet_content = f.read()
 
     json_output = parser.to_json(facet_content)
@@ -61,7 +65,7 @@ def test_canonical_formatting():
     parsed = json.loads(json_output)
 
     # Load expected result
-    with open(expected_file, 'r', encoding='utf-8') as f:
+    with open(expected_file, "r", encoding="utf-8") as f:
         expected = json.load(f)
 
     assert parsed == expected
@@ -77,14 +81,14 @@ def test_extended_scalars():
     facet_file = Path(__file__).parent / "fixtures" / "test_extended_scalars.facet"
     expected_file = Path(__file__).parent / "fixtures" / "test_extended_scalars.json"
 
-    with open(facet_file, 'r', encoding='utf-8') as f:
+    with open(facet_file, "r", encoding="utf-8") as f:
         facet_content = f.read()
 
     json_output = parser.to_json(facet_content)
     parsed = json.loads(json_output)
 
     # Load expected result
-    with open(expected_file, 'r', encoding='utf-8') as f:
+    with open(expected_file, "r", encoding="utf-8") as f:
         expected = json.load(f)
 
     assert parsed == expected
@@ -105,14 +109,14 @@ def test_lenses_applied():
     facet_file = Path(__file__).parent / "fixtures" / "test_lenses.facet"
     expected_file = Path(__file__).parent / "fixtures" / "test_lenses.json"
 
-    with open(facet_file, 'r', encoding='utf-8') as f:
+    with open(facet_file, "r", encoding="utf-8") as f:
         facet_content = f.read()
 
     json_output = parser.to_json(facet_content)
     parsed = json.loads(json_output)
 
     # Load expected result
-    with open(expected_file, 'r', encoding='utf-8') as f:
+    with open(expected_file, "r", encoding="utf-8") as f:
         expected = json.load(f)
 
     assert parsed == expected
@@ -123,14 +127,14 @@ def test_anchors_and_aliases():
     facet_file = Path(__file__).parent / "fixtures" / "test_anchors.facet"
     expected_file = Path(__file__).parent / "fixtures" / "test_anchors.json"
 
-    with open(facet_file, 'r', encoding='utf-8') as f:
+    with open(facet_file, "r", encoding="utf-8") as f:
         facet_content = f.read()
 
     json_output = parser.to_json(facet_content)
     parsed = json.loads(json_output)
 
     # Load expected result
-    with open(expected_file, 'r', encoding='utf-8') as f:
+    with open(expected_file, "r", encoding="utf-8") as f:
         expected = json.load(f)
 
     assert parsed == expected

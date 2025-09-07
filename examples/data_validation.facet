@@ -7,7 +7,7 @@
   description: "Test successful user registration with valid data"
   category: "positive"
 
-  @input
+  input:
     user_data:
       email: "john.doe@example.com"
       password: "SecurePass123!"
@@ -20,21 +20,21 @@
         notifications: "email"
         language: "en"
 
-  @expected_output
+  expected_output:
     status: "success"
     user_id: "user_abc123def456"
     verification_token: "verify_xyz789"
     email_sent: true
 
-  @validations
-    - field: "user_id"
-      rule: "pattern"
-      pattern: "^user_[a-zA-Z0-9]{24}$"
-    - field: "verification_token"
-      rule: "length"
-      min: 32
-      max: 32
-    - field: "email_sent"
+  validations:
+  - field: "user_id"
+    rule: "pattern"
+    pattern: "^user_[a-zA-Z0-9]{24}$"
+  - field: "verification_token"
+    rule: "length"
+    min: 32
+    max: 32
+  - field: "email_sent"
       rule: "equals"
       value: true
 
@@ -42,7 +42,7 @@
   description: "Test various invalid email formats"
   category: "negative"
 
-  @input_matrix
+  input_matrix:
     - email: ""
       expected_error: "email_required"
     - email: "invalid-email"
@@ -54,7 +54,7 @@
     - email: "user.name+tag@example.co.uk"
       expected_error: null  # This should be valid
 
-  @expected_output
+  expected_output:
     status: "error"
     error_code: "{{expected_error}}"
     field: "email"
@@ -63,7 +63,7 @@
   description: "Test password strength requirements"
   category: "negative"
 
-  @input_matrix
+  input_matrix:
     - password: "123"
       expected_error: "password_too_short"
     - password: "password"
@@ -75,7 +75,7 @@
     - password: "Password123"
       expected_error: "password_no_special_chars"
 
-  @expected_output
+  expected_output:
     status: "error"
     error_code: "{{expected_error}}"
     field: "password"
@@ -84,7 +84,7 @@
   description: "Test age restrictions for registration"
   category: "edge_case"
 
-  @input_matrix
+  input_matrix:
     - date_of_birth: "2020-01-01"
       expected_error: "user_too_young"
     - date_of_birth: "1800-01-01"
@@ -94,7 +94,7 @@
     - date_of_birth: "2006-01-01"
       expected_error: null  # Should be valid (18+)
 
-  @expected_output
+  expected_output:
     status: "error"
     error_code: "{{expected_error}}"
     field: "date_of_birth"
@@ -103,19 +103,19 @@
   description: "Test prevention of duplicate email registration"
   category: "security"
 
-  @setup
+  setup:
     existing_user:
       email: "existing@example.com"
       status: "active"
 
-  @input
+  input:
     user_data:
       email: "existing@example.com"
       password: "NewSecurePass123!"
       first_name: "Jane"
       last_name: "Smith"
 
-  @expected_output
+  expected_output:
     status: "error"
     error_code: "email_already_registered"
     field: "email"
@@ -125,18 +125,18 @@
   description: "Test registration rate limiting"
   category: "security"
 
-  @setup
+  setup:
     recent_registrations: 10
     time_window: "1_hour"
 
-  @input
+  input:
     user_data:
       email: "rate.limit@example.com"
       password: "SecurePass123!"
       first_name: "Rate"
       last_name: "Limit"
 
-  @expected_output
+  expected_output:
     status: "error"
     error_code: "rate_limit_exceeded"
     retry_after: 3600
@@ -145,19 +145,19 @@
   description: "Test registration system performance under load"
   category: "performance"
 
-  @load_profile
+  load_profile:
     concurrent_users: 100
     duration: 300  # 5 minutes
     ramp_up_time: 60  # 1 minute
 
-  @input
+  input:
     user_data_template:
       email: "perf.user.{{user_id}}@example.com"
       password: "PerfTestPass123!"
       first_name: "Perf"
       last_name: "User{{user_id}}"
 
-  @performance_assertions
+  performance_assertions:
     - metric: "response_time_p95"
       operator: "<"
       value: 2000  # ms

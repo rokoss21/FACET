@@ -13,7 +13,7 @@
   type: "parallel"
   timeout: 900
 
-  @source(name="database")
+  source:
     type: "postgresql"
     query: """
     SELECT
@@ -29,7 +29,7 @@
       |> dedent |> trim |> normalize_newlines
     connection: "{{DB_CONNECTION_STRING}}"
 
-  @source(name="api")
+  source:
     type: "rest"
     url: "https://api.customer-service.com/customers"
     method: "GET"
@@ -40,7 +40,7 @@
       since: "{{last_run_time}}"
       limit: 1000
 
-  @transform
+  transform:
     filter_null_emails: true
     deduplicate_by: "customer_id"
     validate_schema: true
@@ -50,7 +50,7 @@
   type: "sequential"
   timeout: 1800
 
-  @transform(name="normalize_emails")
+  transform:(name="normalize_emails")
     type: "lens"
     field: "email"
     operations:
@@ -58,7 +58,7 @@
       - trim
       - regex_replace: ["/\\+.*@/", "@"]
 
-  @transform(name="calculate_segments")
+  transform:(name="calculate_segments")
     type: "conditional"
     conditions:
       - field: "lifetime_value"
@@ -75,7 +75,7 @@
         result: "early_adopter"
     default: "new"
 
-  @transform(name="enrich_demographics")
+  transform:(name="enrich_demographics")
     type: "enrichment"
     source: "demographics_api"
     match_field: "email"
@@ -89,14 +89,14 @@
   type: "parallel"
   timeout: 600
 
-  @destination(name="data_warehouse")
+  destination:(name="data_warehouse")
     type: "snowflake"
     table: "customer_analytics"
     mode: "upsert"
     key_fields: ["customer_id"]
     connection: "{{SNOWFLAKE_CONNECTION}}"
 
-  @destination(name="cache")
+  destination:(name="cache")
     type: "redis"
     key_pattern: "customer:{customer_id}"
     ttl: 86400  # 24 hours
@@ -107,13 +107,13 @@
   type: "sequential"
   timeout: 300
 
-  @validation(name="row_count")
+  validation:(name="row_count")
     type: "count"
     source: "data_warehouse"
     expected_min: 100
     alert_threshold: 50
 
-  @validation(name="data_quality")
+  validation:(name="data_quality")
     type: "schema"
     source: "data_warehouse"
     schema:
@@ -121,12 +121,12 @@
       email: {type: "string", format: "email"}
       segment: {type: "string", enum: ["high_value", "loyal", "early_adopter", "new"]}
 
-  @notification(name="success")
+  notification:(name="success")
     condition: "all_validations_pass"
     channels: ["slack", "email"]
     template: "Data pipeline completed successfully. Processed {{row_count}} customers."
 
-  @notification(name="failure")
+  notification:(name="failure")
     condition: "any_validation_fails"
     channels: ["slack", "pagerduty", "email"]
     priority: "high"

@@ -1,39 +1,57 @@
+import json
+import re
+import textwrap
 
-import json, re, textwrap
 
-class LensError(Exception): ...
+class LensError(Exception):
+    ...
+
 
 def _ensure_str(v, name):
     if not isinstance(v, str):
         raise LensError(f"F102: lens '{name}' expects string, got {type(v).__name__}")
 
-def trim(v): _ensure_str(v, "trim"); return v.strip()
+
+def trim(v):
+    _ensure_str(v, "trim")
+    return v.strip()
+
 
 def dedent(v):
     _ensure_str(v, "dedent")
     v = v.replace("\r\n", "\n").replace("\r", "\n")
     return textwrap.dedent(v)
 
+
 def squeeze_spaces(v):
     _ensure_str(v, "squeeze_spaces")
     lines = v.splitlines()
     return "\n".join(re.sub(r"[ \t]+", " ", ln) for ln in lines)
 
+
 def limit(v, n=0):
     _ensure_str(v, "limit")
-    try: n = int(n)
-    except: raise LensError("F102: limit(N) requires integer N")
-    if n < 0: return v
+    try:
+        n = int(n)
+    except:
+        raise LensError("F102: limit(N) requires integer N")
+    if n < 0:
+        return v
     b = v.encode("utf-8")
-    if len(b) <= n: return v
+    if len(b) <= n:
+        return v
     b = b[:n]
     while True:
-        try: return b.decode("utf-8")
-        except UnicodeDecodeError: b = b[:-1]
+        try:
+            return b.decode("utf-8")
+        except UnicodeDecodeError:
+            b = b[:-1]
+
 
 def normalize_newlines(v):
     _ensure_str(v, "normalize_newlines")
     return v.replace("\r\n", "\n").replace("\r", "\n")
+
 
 def json_minify(v):
     _ensure_str(v, "json_minify")
@@ -43,12 +61,14 @@ def json_minify(v):
     except Exception:
         return v
 
+
 def json_parse(v):
     _ensure_str(v, "json_parse")
     try:
         return json.loads(v)
     except Exception:
         return v
+
 
 def strip_markdown(v):
     _ensure_str(v, "strip_markdown")
@@ -60,6 +80,7 @@ def strip_markdown(v):
     s = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", s)
     return s
 
+
 REGISTRY = {
     "trim": (trim, 0),
     "dedent": (dedent, 0),
@@ -70,6 +91,7 @@ REGISTRY = {
     "json_parse": (json_parse, 0),
     "strip_markdown": (strip_markdown, 0),
 }
+
 
 def apply_lenses(value, lenses):
     out = value

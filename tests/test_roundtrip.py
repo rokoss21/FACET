@@ -1,7 +1,13 @@
-import json, glob, os, pytest
+import glob
+import json
+import os
+
+import pytest
+
 from facet import parser
 
 EXAMPLES = glob.glob(os.path.join(os.path.dirname(__file__), "..", "examples", "*.facet"))
+
 
 @pytest.mark.parametrize("path", EXAMPLES)
 def test_roundtrip(path):

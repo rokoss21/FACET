@@ -12,9 +12,9 @@
   authentication: "bearer_token"
   rate_limit: "100/hour"
 
-  @request
+  request:
     headers:
-      Content-Type: "application/json"
+      content_type: "application/json"
       Authorization: "Bearer {{token}}"
     body:
       type: "object"
@@ -24,10 +24,10 @@
         name: {type: "string", minLength: 2, maxLength: 100}
         preferences: {type: "object", additionalProperties: true}
 
-  @response(status=201)
+  response:(status=201)
     description: "User created successfully"
     headers:
-      Content-Type: "application/json"
+      content_type: "application/json"
       Location: "/users/{{user_id}}"
     body:
       type: "object"
@@ -38,7 +38,7 @@
         created_at: {type: "string", format: "date-time"}
         status: {type: "string", enum: ["active", "pending_verification"]}
 
-  @response(status=400)
+  response:(status=400)
     description: "Validation error"
     body:
       type: "object"
@@ -53,7 +53,7 @@
   @path_params
     user_id: {type: "string", pattern: "^user_[a-zA-Z0-9]{24}$"}
 
-  @response(status=200)
+  response:(status=200)
     body:
       type: "object"
       properties:
