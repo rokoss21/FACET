@@ -17,8 +17,8 @@ from unittest.mock import Mock, patch
 # Add src to path for imports
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'src'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'server'))
 
 from facet_mcp.server import FACETMCPServer
 from facet_mcp.protocol.messages import MCPMessage

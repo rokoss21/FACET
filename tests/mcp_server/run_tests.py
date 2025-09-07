@@ -11,8 +11,8 @@ import os
 from pathlib import Path
 
 # Add src to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..', 'src'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'server'))
 
 
 def run_unit_tests():
@@ -30,7 +30,7 @@ def run_unit_tests():
         print(f"\n📄 Running {test_file}...")
         result = subprocess.run([
             sys.executable, "-m", "pytest",
-            f"tests_server/{test_file}",
+            f"{test_file}",
             "-v", "--tb=short"
         ], capture_output=True, text=True)
 
@@ -50,7 +50,7 @@ def run_integration_tests():
 
     result = subprocess.run([
         sys.executable, "-m", "pytest",
-        "tests_server/test_integration.py",
+        "test_integration.py",
         "-v", "--tb=short"
     ], capture_output=True, text=True)
 
@@ -73,7 +73,7 @@ def run_e2e_tests():
 
     result = subprocess.run([
         sys.executable, "-m", "pytest",
-        "tests_server/test_e2e.py",
+        "test_e2e.py",
         "-v", "--tb=short", "-s"
     ], capture_output=True, text=True)
 

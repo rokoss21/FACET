@@ -8,7 +8,13 @@ This example shows basic usage of all three MCP tools.
 
 import asyncio
 import json
-from server.facet_mcp.protocol.transport import MCPClient
+import sys
+import os
+
+# Add server to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'server'))
+
+from facet_mcp.protocol.transport import MCPClient
 
 
 async def main():

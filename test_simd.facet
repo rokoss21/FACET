@@ -1,0 +1,10 @@
+@system(role="Performance Test")
+  description: "Testing SIMD optimizations"
+
+@user
+  text: "Hello   world   with   spaces"
+    |> squeeze_spaces
+
+@output
+  schema:
+    type: "object"

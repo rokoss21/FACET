@@ -9,7 +9,13 @@ with real AI agent simulation.
 import asyncio
 import json
 import websockets
-from server import FACETMCPServer
+import sys
+import os
+
+# Add server to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'server'))
+
+from facet_mcp.server import FACETMCPServer
 
 
 class MCPDemo:

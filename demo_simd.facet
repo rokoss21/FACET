@@ -1,0 +1,38 @@
+@system(role="Performance Test", version=1)
+  description: "Testing SIMD optimizations in FACET lenses"
+  features:
+    - "SIMD-optimized string processing"
+    - "JIT compilation with Numba"
+    - "Parallel processing capabilities"
+
+@user
+  input_text: """
+This is a test document with various text processing needs.
+It contains multiple lines with different indentation levels.
+Some lines have extra    spaces    that need to be squeezed.
+Others have CRLF line endings that need normalization.
+
+    This line has significant indentation that should be removed.
+    Another indented line with     multiple     spaces.
+
+Final line with mixed content.
+"""
+    |> dedent |> squeeze_spaces |> trim
+
+@output
+  description: "Processed text with SIMD optimizations"
+  schema: {
+    "type": "object",
+    "required": ["processed_text", "performance_metrics"],
+    "properties": {
+      "processed_text": {"type": "string"},
+      "performance_metrics": {
+        "type": "object",
+        "properties": {
+          "dedent_speedup": {"type": "number"},
+          "squeeze_speedup": {"type": "number"},
+          "total_improvement": {"type": "number"}
+        }
+      }
+    }
+  }
