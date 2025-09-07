@@ -823,41 +823,31 @@ Structured errors recommended (code, message, location):
 
 ### 📅 Release Timeline
 
-#### **v1.1** (Q2 2025) - Enhancement Release
-- 🔍 **Advanced Lenses** - New transformation functions (slugify, hash, base64)
-- ⚡ **Performance Improvements** - Optimized parsing, better memory usage
-- 🧪 **Golden Tests** - Output validation suite
-- 📊 **Metrics & Monitoring** - Built-in performance tracking
+#### **v1.1** (Q4 2025) - Enhancement Release
+- 🔍 **Advanced Lenses** - slugify, hash, base64, regex_replace functions
+- ⚡ **Performance Improvements** - Optimized parsing, memory usage, streaming support
+- 🧪 **Golden Tests** - Complete output validation suite
+- 📊 **Metrics & Monitoring** - Built-in performance tracking and analytics
 
-#### **v1.2** (Q1 2026) - Ecosystem Expansion
+#### **v1.2** (Q2 2026) - Ecosystem Expansion
 - 🌐 **TypeScript SDK** - NPM package with full type safety
-- 💻 **VS Code Extension** - Full IDE support with syntax highlighting
-- 🔧 **Additional CLI Tools** - `facet diff`, `facet merge`, `facet watch`
-- 📚 **MkDocs Documentation** - Live documentation site deployment
+- 💻 **VS Code Extension** - Full IDE support with LSP integration
+- 🔧 **Advanced CLI Tools** - `facet diff`, `facet merge`, `facet watch`, `facet template`
+- 📚 **MkDocs Documentation** - Live documentation site with API reference
 
-#### **v1.3** (Q3 2026) - Developer Experience
-- 🛠️ **Pre-commit Hooks** - Automated code quality checks
-- 🚀 **GitHub Actions Templates** - CI/CD integration examples
-- 📖 **Interactive Tutorial** - Web-based FACET learning platform
-- 🎓 **Video Tutorials** - Comprehensive learning materials
-
-#### **v2.0** (Q1 2027) - Enterprise Features
-- 🔌 **Plugin System** - Extensible architecture for custom lenses
-- 📡 **Streaming Parser** - Large file processing capabilities
-- 🔀 **Schema Evolution** - Version-aware validation and migration
-- ☁️ **Cloud Integrations** - AWS Lambda, Docker, Kubernetes support
+#### **v2.0** (Q1 2027) - Enterprise Platform
+- 🔌 **Plugin System** - Extensible architecture for custom lenses and parsers
+- 🦀 **Rust SDK** - High-performance parsing library with streaming support
+- ☁️ **Cloud Integrations** - AWS Lambda, Docker, Kubernetes operators
+- 🎯 **LSP Server** - Universal Language Server Protocol implementation
+- 📈 **Enterprise Monitoring** - Advanced analytics and performance insights
 
 #### **v2.1** (Q3 2027) - Global Ecosystem
-- 🦀 **Rust SDK** - High-performance parsing library
-- 🌍 **Multi-Language Support** - Go, Java SDKs
-- 🎯 **LSP Implementation** - Universal Language Server Protocol
-- 📈 **Enterprise Integrations** - Advanced monitoring and analytics
-
-#### **v3.0** (2028) - AI-Native Platform
-- 🤖 **AI Integration Framework** - Native AI workflow support
-- 🔄 **Auto-optimization** - Self-tuning performance features
-- 🌐 **Distributed Processing** - Multi-node FACET execution
-- 📊 **Advanced Analytics** - Usage patterns and optimization insights
+- 🌍 **Multi-Language SDKs** - Go, Java implementations
+- 🤖 **AI Integration Framework** - Native AI workflow support and optimization
+- 🔄 **Auto-optimization** - Self-tuning performance and memory management
+- 📖 **Interactive Learning Platform** - Web-based tutorials and playground
+- 🎓 **Comprehensive Education** - Video courses, cookbook, migration guides
 
 **Help shape FACET's future!** Share your ideas in [GitHub Discussions](https://github.com/rokoss21/FACET/discussions) or contribute via [pull requests](CONTRIBUTING.md).
 
