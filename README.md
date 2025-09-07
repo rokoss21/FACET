@@ -1,8 +1,8 @@
 # FACET — Feature‑Aware Contracted Extension for Text
 **A deterministic markup language for AI instructions**
 
-[![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](./FACET-Language-Spec-v1.0-FULL-r1.md)
-[![status](https://img.shields.io/badge/status-final-success)](./FACET-Language-Spec-v1.0-FULL-r1.md#editorial--normative-updates-in-r1)
+[![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)
+[![status](https://img.shields.io/badge/status-final-success)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md#editorial--normative-updates-in-r1)
 [![mime](https://img.shields.io/badge/MIME-application%2Ffacet-blue)](#-media-type)
 [![ext](https://img.shields.io/badge/ext-.facet-blueviolet)](#-file-extension)
 [![author](https://img.shields.io/badge/author-Emil%20Rokossovskiy-0aa)](#-author)
@@ -172,9 +172,9 @@ print(json.dumps(ast, ensure_ascii=False, indent=2))
 
 ## 📦 Project Layout
 
-- 📜 **Full Spec (r1)** — [`FACET-Language-Spec-v1.0-FULL-r1.md`](./FACET-Language-Spec-v1.0-FULL-r1.md)  
-- 📄 **Short Spec (r1)** — [`FACET-SPEC-v1.0-r1.md`](./FACET-SPEC-v1.0-r1.md)  
-- 🧰 **Parser** — `facet/parser.py`, `facet/lenses.py`, `facet/errors.py`, `facet/cli.py`  
+- 📜 **Full Spec (r1)** — [`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)
+- 📄 **Short Spec (r1)** — [`specs/FACET-SPEC-v1.0-r1.md`](./specs/FACET-SPEC-v1.0-r1.md)  
+- 🧰 **Parser** — `src/facet/parser.py`, `src/facet/lenses.py`, `src/facet/errors.py`, `src/facet/cli.py`  
 - 🧪 **Examples** — `examples/*.facet` (convert to JSON with `facet to-json`)
 
 ---

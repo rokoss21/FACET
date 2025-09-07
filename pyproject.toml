@@ -9,6 +9,7 @@ description = "FACET v1.0 — Deterministic markup for AI instructions"
 readme = "README.md"
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["facet*"]
 
 [project.optional-dependencies]

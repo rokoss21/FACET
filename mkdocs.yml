@@ -142,8 +142,8 @@ nav:
       - Error Codes: api/errors.md
   - Examples: examples/index.md
   - Specification:
-      - Full Spec (v1.0 r1): spec/full.md
-      - Short Spec (v1.0 r1): spec/short.md
+      - Full Spec (v1.0 r1): ../specs/FACET-Language-Spec-v1.0-FULL-r1.md
+      - Short Spec (v1.0 r1): ../specs/FACET-SPEC-v1.0-r1.md
   - Development:
       - Contributing: development/contributing.md
       - Architecture: development/architecture.md

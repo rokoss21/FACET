@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "facet-lang"
-version = "1.0.0"
+version = "1.0.1"
 description = "FACET v1.0 — Deterministic markup for AI instructions"
 readme = "README.md"
 license = "MIT"
@@ -109,7 +109,7 @@ strict_equality = true
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-ra -q --strict-markers --strict-config"
-testpaths = ["../../tests"]
+testpaths = ["../../../tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]

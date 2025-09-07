@@ -15,7 +15,7 @@ help:
 	@echo "  make clean       - remove generated JSON in examples"
 
 install:
-	$(PY) -m pip install -e facet
+	$(PY) -m pip install -e .
 
 fmt:
 	@if [ -n "$(EXAMPLES)" ]; then \
