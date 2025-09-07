@@ -23,8 +23,8 @@
 [![CI](https://github.com/rokoss21/FACET/actions/workflows/ci.yml/badge.svg)](https://github.com/rokoss21/FACET/actions/workflows/ci.yml)
 [![Coverage](https://codecov.io/gh/rokoss21/FACET/branch/main/graph/badge.svg)](https://codecov.io/gh/rokoss21/FACET)
 
-[![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)
-[![status](https://img.shields.io/badge/status-final-success)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md#editorial--normative-updates-in-r1)
+[![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md)
+[![status](https://img.shields.io/badge/status-final-success)](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md#editorial--normative-updates-in-r1)
 [![mime](https://img.shields.io/badge/MIME-application%2Ffacet-blue)](#-media-type)
 [![ext](https://img.shields.io/badge/ext-.facet-blueviolet)](#-file-extension)
 [![author](https://img.shields.io/badge/author-Emil%20Rokossovskiy-0aa)](#-author)
@@ -654,9 +654,9 @@ prompt_data = parser.parse_facet(content)
 ### 📖 More Examples
 
 For additional examples and documentation, see:
-- **[`examples/README.md`](./examples/README.md)** — Complete examples guide with 6 use cases
-- **[`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)** — Language specification and grammar
-- **[`specs/FACET-SPEC-v1.0-r1.md`](./specs/FACET-SPEC-v1.0-r1.md)** — Quick reference specification
+- **[`examples/README.md`](https://github.com/rokoss21/FACET/blob/main/examples/README.md)** — Complete examples guide with 6 use cases
+- **[`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md)** — Language specification and grammar
+- **[`specs/FACET-SPEC-v1.0-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-SPEC-v1.0-r1.md)** — Quick reference specification
 - **[GitHub Repository](https://github.com/rokoss21/FACET)** — Latest examples and community contributions
 
 ### 🚀 Future Documentation
@@ -669,8 +669,8 @@ For additional examples and documentation, see:
 
 ## 📦 Project Layout
 
-- 📜 **Full Spec (r1)** — [`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)
-- 📄 **Short Spec (r1)** — [`specs/FACET-SPEC-v1.0-r1.md`](./specs/FACET-SPEC-v1.0-r1.md)  
+- 📜 **Full Spec (r1)** — [`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md)
+- 📄 **Short Spec (r1)** — [`specs/FACET-SPEC-v1.0-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-SPEC-v1.0-r1.md)  
 - 🧰 **Parser** — `src/facet/parser.py`, `src/facet/lenses.py`, `src/facet/errors.py`, `src/facet/cli.py`  
 - 🧪 **Examples** — `examples/*.facet` (convert to JSON with `facet to-json`)
 
@@ -849,7 +849,7 @@ Structured errors recommended (code, message, location):
 - 📖 **Interactive Learning Platform** - Web-based tutorials and playground
 - 🎓 **Comprehensive Education** - Video courses, cookbook, migration guides
 
-**Help shape FACET's future!** Share your ideas in [GitHub Discussions](https://github.com/rokoss21/FACET/discussions) or contribute via [pull requests](CONTRIBUTING.md).
+**Help shape FACET's future!** Share your ideas in [GitHub Discussions](https://github.com/rokoss21/FACET/discussions) or contribute via [pull requests](https://github.com/rokoss21/FACET/blob/main/CONTRIBUTING.md).
 
 ---
 
@@ -857,7 +857,7 @@ Structured errors recommended (code, message, location):
 
 FACET is an open-source project and we welcome contributions from the community! Whether it's reporting a bug, proposing a new feature, or submitting a pull request, your help is valued.
 
-Please read our **[Contributing Guidelines](CONTRIBUTING.md)** to get started.
+Please read our **[Contributing Guidelines](https://github.com/rokoss21/FACET/blob/main/CONTRIBUTING.md)** to get started.
 
 ### Ways to Contribute
 - **🐛 Report a Bug:** Open an issue with a clear description and steps to reproduce
