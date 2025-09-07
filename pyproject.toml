@@ -28,8 +28,13 @@ docs = [
   "mkdocs-material",
   "mkdocs-mermaid2-plugin"
 ]
+server = [
+  "websockets>=12.0",
+  "jsonschema>=4.0",
+  "uvloop>=0.17.0; sys_platform != 'win32'"
+]
 all = [
-  "facet-lang[dev,docs]"
+  "facet-lang[dev,docs,server]"
 ]
 
 [project.urls]
@@ -41,6 +46,7 @@ Changelog = "https://github.com/rokoss21/FACET/blob/main/CHANGELOG.md"
 
 [project.scripts]
 facet = "facet.cli:main"
+facet-mcp = "server.facet_mcp.cli:main"
 
 # Tool configurations
 [tool.black]

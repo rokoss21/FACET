@@ -851,6 +851,69 @@ Structured errors recommended (code, message, location):
 
 ---
 
+## 🛠️ FACET MCP Server - Agent-First AI Tooling
+
+**Revolutionary MCP Server** that transforms AI agents from "creative but unreliable assistants" into "high-performance managers" who delegate precise tasks to specialized tools.
+
+### 🛠️ Agent Tools
+
+#### **execute** - Complete FACET Document Execution
+```json
+{
+  "description": "Execute full FACET documents with SIMD optimizations",
+  "use_case": "Complex multi-step data pipelines with input processing and output contracts"
+}
+```
+
+#### **apply_lenses** - Atomic Text Transformations
+```json
+{
+  "description": "Apply FACET lenses for reliable text cleaning and normalization",
+  "use_case": "Quick, deterministic text processing (trim, dedent, squeeze_spaces)"
+}
+```
+
+#### **validate_schema** - Data Quality Assurance
+```json
+{
+  "description": "Validate JSON data against schemas with comprehensive error reporting",
+  "use_case": "Ensure data correctness before returning results to users"
+}
+```
+
+### 🎯 Problems Solved
+
+| AI Agent Problem | FACET MCP Solution | Tool |
+|---|---|---|
+| Unreliable JSON output | Declarative pipeline specifications | `execute` |
+| Complex multi-step tasks | Single FACET document describes entire workflow | `execute` |
+| "Hallucinations" in formatting | 100% deterministic text transformations | `apply_lenses` |
+| Data type/format errors | Schema validation prevents mistakes | `validate_schema` |
+| Low performance | SIMD optimizations for high-throughput scenarios | All tools |
+
+### 🚀 Quick Start
+
+```bash
+# Install with server dependencies
+pip install facet-lang[server]
+
+# Start MCP server
+facet-mcp start
+
+# Check available tools
+facet-mcp tools
+facet-mcp examples
+```
+
+### 📊 Performance & Scalability
+
+- **SIMD Optimizations**: 3.7x faster text processing
+- **WebSocket Transport**: Real-time, low-latency communication
+- **Concurrent Processing**: Handle multiple AI agents simultaneously
+- **Memory Efficient**: Optimized for large documents and high throughput
+
+---
+
 ## 🚀 SIMD Performance Optimizations
 
 **FACET v1.0.1** includes cutting-edge **SIMD (Single Instruction, Multiple Data)** optimizations that deliver significant performance improvements for text processing operations.

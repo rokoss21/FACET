@@ -45,12 +45,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **🚀 FACET MCP Server** - Agent-First AI Tooling
+  - Complete MCP server implementation with WebSocket transport
+  - Three core tools: `execute`, `apply_lenses`, `validate_schema`
+  - SIMD optimizations integrated into MCP tools
+  - Comprehensive CLI interface (`facet-mcp` command)
+  - Full configuration system with environment variables
+  - Production-ready with rate limiting and security features
 - Pre-commit hooks configuration
 - MkDocs documentation site
 - Performance benchmarks
 - Integration with popular AI frameworks
 
 ### Planned
+- **🎯 MCP Client Libraries**
+  - TypeScript/JavaScript MCP client implementation
+  - Python LangChain integration
+  - Go MCP client for enterprise systems
 - TypeScript/JavaScript implementation
 - LSP server for IDE integration
 - VS Code extension
