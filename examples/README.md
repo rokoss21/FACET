@@ -2,6 +2,79 @@
 
 This directory contains comprehensive examples demonstrating real-world usage scenarios for FACET.
 
+## 📖 How to Use These Examples
+
+### 🔧 Prerequisites
+```bash
+# Install FACET
+pip install facet-lang
+
+# Verify installation
+facet --version
+```
+
+### 🚀 Basic Usage
+```bash
+# Convert FACET to JSON
+facet to-json examples/ai_prompt.facet > ai_prompt.json
+
+# Validate FACET file for syntax errors
+facet lint examples/ai_prompt.facet
+
+# Format FACET file (auto-fix indentation/whitespace)
+facet fmt examples/ai_prompt.facet
+
+# Validate against output schema
+facet validate examples/ai_prompt.facet
+```
+
+### 🎯 Working with Examples
+
+#### 1. Explore Example Structure
+Each `.facet` file demonstrates different FACET capabilities:
+- **AI Prompts**: Structured prompts with contracts
+- **API Contracts**: REST API specifications
+- **Configuration**: Production config management
+- **Workflows**: ETL pipeline orchestration
+- **Testing**: Comprehensive test suites
+
+#### 2. Convert Examples to JSON
+```bash
+# Convert specific example
+facet to-json examples/ai_prompt.facet > output.json
+
+# Convert all examples
+for f in *.facet; do
+  facet to-json "$f" > "${f%.facet}.json"
+done
+```
+
+#### 3. Validate Examples
+```bash
+# Lint all examples
+facet lint *.facet
+
+# Check for syntax errors
+find . -name "*.facet" -exec facet lint {} \;
+```
+
+#### 4. Use in Your Applications
+```python
+from facet import parser
+
+# Load and parse example
+with open('examples/ai_prompt.facet', 'r') as f:
+    content = f.read()
+
+# Convert to JSON
+json_output = parser.to_json(content)
+
+# Parse to Python dict
+prompt_data = parser.parse_facet(content)
+```
+
+### 📚 Example Categories
+
 ## 🎯 Example Categories
 
 ### 🤖 AI Prompt Engineering
