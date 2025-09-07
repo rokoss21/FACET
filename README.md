@@ -492,126 +492,699 @@ facet fmt examples/recursion.facet
 #### **🤖 AI Prompt Engineering**
 **File:** [`examples/ai_prompt.facet`](./examples/ai_prompt.facet)
 ```facet
-@system(role="Code Reviewer", version=1)
-  style: "Thorough, constructive"
+@meta
+  id: "ai-code-reviewer"
+  version: 1.0
+  author: "AI Prompt Engineer"
+  tags: ["code-review", "python", "best-practices", "production-ready"]
+
+@system(role="Senior Code Reviewer", expertise="python_development")
+  style: "Thorough, constructive, professional, educational"
+  principles:
+    - "Clean Code by Robert Martin"
+    - "Python PEP 8 compliance"
+    - "Security-first approach"
+    - "Performance considerations"
   constraints:
-    - "Use markdown formatting"
-    - "Focus on maintainability"
+    - "Use markdown formatting for readability"
+    - "Focus on maintainability and scalability"
+    - "Provide specific examples for improvements"
+    - "Consider edge cases and error handling"
+    - "Include security vulnerability assessment"
+
+  # Extended scalars demonstration
+  review_deadline: @2025-12-31T17:00:00Z  # Timestamp for review completion
+  max_review_time: 30m                    # Duration limit for review
+  code_size_limit: 100KB                  # Size limit for code under review
+  security_pattern: /^[a-zA-Z_][a-zA-Z0-9_]*$/  # Valid Python identifier pattern
 
 @user
-  task: "Review this Python function"
-  code: "def func(): pass" |> trim
+  task: "Review this Python function for production readiness and security"
+    |> trim
+
+  code: """
+def process_user_data(user_id, data):
+    if user_id is None:
+        return {"error": "Invalid user ID"}
+
+    # Process data
+    result = {"user_id": user_id, "processed": True}
+    return result
+  """
+    |> dedent |> trim |> limit(2000)
+
+  # Additional context with nested structures
+  context:
+    framework: "Flask/FastAPI"
+    database: "PostgreSQL"
+    deployment: "Docker + Kubernetes"
+    team_size: 5
+    timeline: "2 weeks to production"
 
 @output(format="json")
-  schema: {"type": "object", "required": ["issues", "rating"]}
+  schema: ```json
+    {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "required": ["overall_assessment", "security_review", "code_quality", "performance_analysis", "production_readiness", "recommendations"],
+      "properties": {
+        "overall_assessment": {
+          "type": "object",
+          "properties": {
+            "rating": {"type": "string", "enum": ["excellent", "good", "needs_work", "critical_issues"]},
+            "score": {"type": "number", "minimum": 0, "maximum": 100},
+            "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        }
+      }
+    }
+  ```
 ```
-**Use Case:** Structured AI prompts with guaranteed JSON responses
+**Use Case:** Complete AI agent prompt for code review with extended scalars, anchors, and comprehensive JSON Schema
 
 #### **🔧 API Contract Definition**
 **File:** [`examples/api_contract.facet`](./examples/api_contract.facet)
 ```facet
+@meta
+  id: "api-contract-designer"
+  version: 1.0
+  author: "API Architecture Specialist"
+  tags: ["api", "rest", "design", "contracts", "documentation"]
+
+@system(role="Senior API Architect", expertise="rest_api_design")
+  style: "RESTful, pragmatic, standards-compliant, comprehensive"
+  principles:
+    - "REST architectural constraints"
+    - "API First Development"
+    - "HATEOAS principles"
+    - "Resource modeling"
+    - "Versioning strategies"
+  constraints:
+    - "Follow OpenAPI 3.0 specification"
+    - "Implement proper HTTP status codes"
+    - "Ensure backward compatibility"
+    - "Include comprehensive error handling"
+    - "Design for scalability and maintainability"
+
+  # Extended scalars for API specification
+  api_launch_date: @2025-06-01T00:00:00Z     # API launch timestamp
+  response_timeout: 30s                       # API response timeout
+  rate_limit_window: 1h                       # Rate limiting window
+  max_request_size: 10MB                      # Maximum request payload
+  api_version_pattern: /^v\d+\.\d+$/         # API versioning regex
+
+@user
+  task: "Design a comprehensive REST API for user management system"
+    |> trim
+
+  requirements:
+    authentication: "JWT Bearer tokens with refresh"
+    authorization: "Role-based access control (RBAC)"
+    database: "PostgreSQL with connection pooling"
+    caching: "Redis for session and data caching"
+    monitoring: "Prometheus metrics and structured logging"
+
+  # Complex nested business rules
+  business_rules: {
+    user_lifecycle: {
+      registration: "Email verification required",
+      activation: "Admin approval for enterprise users",
+      deactivation: "Soft delete with data retention",
+      deletion: "GDPR-compliant permanent deletion"
+    },
+    data_privacy: {
+      pii_fields: ["email", "phone", "address"],
+      retention_period: "7 years for financial data",
+      consent_management: "Granular user preferences"
+    }
+  }
+
 @endpoint(path="/users", method="POST")
-  description: "Create user account"
+  description: "Create new user account"
   authentication: "bearer_token"
+  rate_limit: "100/hour"
 
-  @request
-    body: {
-      "type": "object",
-      "required": ["email", "name"],
-      "properties": {
-        "email": {"type": "string", "format": "email"}
-      }
-    }
+  request:
+    headers:
+      content_type: "application/json"
+      Authorization: "Bearer {{token}}"
+    body:
+      type: "object"
+      required: ["email", "name"]
+      properties:
+        email: {type: "string", format: "email"}
+        name: {type: "string", minLength: 2, maxLength: 100}
+        preferences: {type: "object", additionalProperties: true}
 
-  @response(status=201)
-    body: {
-      "type": "object",
-      "properties": {
-        "user_id": {"type": "string"}
-      }
-    }
+  response:(status=201)
+    description: "User created successfully"
+    headers:
+      content_type: "application/json"
+      Location: "/users/{{user_id}}"
+    body:
+      type: "object"
+      properties:
+        user_id: {type: "string", pattern: "^user_[a-zA-Z0-9]{24}$"}
+        email: {type: "string", format: "email"}
+        name: {type: "string"}
+        created_at: {type: "string", format: "date-time"}
+        status: {type: "string", enum: ["active", "pending_verification"]}
 ```
-**Use Case:** Complete API specifications with validation
+**Use Case:** Complete API design system with anchors, extended scalars, and comprehensive contract definition
 
 #### **⚙️ Configuration Management**
 **File:** [`examples/config_management.facet`](./examples/config_management.facet)
 ```facet
+@meta
+  id: "config-management-system"
+  version: 1.0
+  author: "DevOps Configuration Specialist"
+  tags: ["config", "devops", "infrastructure", "security", "monitoring"]
+
+@system(role="Senior DevOps Engineer", expertise="infrastructure_configuration")
+  style: "Infrastructure-as-Code, secure, scalable, maintainable"
+  principles:
+    - "Configuration as Code"
+    - "Secrets Management"
+    - "Environment Parity"
+    - "Immutable Infrastructure"
+    - "Zero Trust Security"
+  constraints:
+    - "Never store secrets in configuration files"
+    - "Use environment-specific configurations"
+    - "Implement proper validation and error handling"
+    - "Ensure configuration is version controlled"
+    - "Follow security best practices"
+
+  # Extended scalars for configuration management
+  config_update_frequency: 24h      # Configuration update interval
+  secret_rotation_period: 90d       # Secret rotation timeframe
+  backup_retention_period: 30d      # Backup retention time
+  monitoring_interval: 60s          # Monitoring check interval
+  log_retention_pattern: /^\d+[dh]$/ # Log retention regex pattern
+
+@user
+  task: "Design comprehensive configuration management system"
+    |> trim
+
+  requirements:
+    environments: ["development", "staging", "production"]
+    security_level: "enterprise"
+    scalability: "auto-scaling enabled"
+    compliance: ["SOC2", "GDPR", "HIPAA"]
+    monitoring: "24/7 observability"
+
+  # Complex nested configuration structure
+  architecture_requirements: {
+    multi_region: {
+      enabled: true,
+      regions: ["us-east-1", "eu-west-1", "ap-southeast-1"],
+      failover_strategy: "active-passive",
+      data_replication: "synchronous"
+    },
+    high_availability: {
+      load_balancer: "application-load-balancer",
+      auto_scaling: {
+        min_instances: 3,
+        max_instances: 50,
+        target_cpu_utilization: 70
+      },
+      health_checks: {
+        interval: 30,
+        timeout: 5,
+        healthy_threshold: 2,
+        unhealthy_threshold: 2
+      }
+    },
+    disaster_recovery: {
+      backup_frequency: "daily",
+      recovery_time_objective: "4h",
+      recovery_point_objective: "1h",
+      cross_region_replication: true
+    }
+  }
+
 @database
-  host: "prod-db.cluster.rds.amazonaws.com"
+  host: "prod-db-cluster.us-east-1.rds.amazonaws.com"
+  port: 5432
+  name: "myapp_production"
+  ssl_mode: "require"
+  connection_pool:
+    min_connections: 10
+    max_connections: 100
+    connection_timeout: 30
+    idle_timeout: 300
   credentials:
     username: "{{DB_USER}}"
     password: "{{DB_PASSWORD}}"
-  ssl_mode: "require"
-
-@cache
-  type: "redis"
-  url: "{{REDIS_URL}}"
-
-@external_services
-  payment_gateway:
-    provider: "stripe"
-    api_key: "{{STRIPE_SECRET_KEY}}"
+  schema: "public"
 ```
-**Use Case:** Production configuration with secret templating
+**Use Case:** Enterprise configuration management with anchors, extended scalars, and security policies
 
 #### **🔄 Workflow Orchestration**
 **File:** [`examples/workflow_orchestration.facet`](./examples/workflow_orchestration.facet)
 ```facet
-@workflow(name="DataPipeline", version="2.0")
+@meta
+  id: "workflow-orchestration-system"
+  version: 1.0
+  author: "Data Engineering Specialist"
+  tags: ["workflow", "orchestration", "etl", "data-pipeline", "monitoring"]
+
+@system(role="Senior Data Engineer", expertise="workflow_orchestration")
+  style: "Reliable, scalable, observable, fault-tolerant"
+  principles:
+    - "Event-Driven Architecture"
+    - "Idempotent Operations"
+    - "Circuit Breaker Pattern"
+    - "Graceful Degradation"
+    - "Infrastructure as Code"
+  constraints:
+    - "Ensure exactly-once processing semantics"
+    - "Implement comprehensive error handling"
+    - "Maintain data quality and integrity"
+    - "Optimize for cost and performance"
+    - "Enable real-time monitoring and alerting"
+
+  # Extended scalars for workflow orchestration
+  pipeline_timeout: 3600s              # Maximum pipeline execution time
+  retry_backoff_base: 60s             # Base delay for retry attempts
+  monitoring_interval: 30s            # Health check frequency
+  data_retention_period: 90d          # How long to keep processed data
+  sla_response_time: 4h               # Service level agreement target
+  validation_pattern: /^[a-zA-Z0-9_-]+$/ # Valid workflow name pattern
+
+@user
+  task: "Design comprehensive workflow orchestration system"
+    |> trim
+
+  requirements:
+    scalability: "Handle millions of events per day"
+    reliability: "99.9% uptime with automatic recovery"
+    observability: "Full tracing, metrics, and logging"
+    data_quality: "Schema validation and integrity checks"
+    security: "End-to-end encryption and access controls"
+
+  # Complex nested workflow architecture
+  architecture_requirements: {
+    event_processing: {
+      throughput: "1000 events/second"
+      latency: "< 100ms"
+      ordering: "guaranteed within partitions"
+      exactly_once: true
+    },
+    state_management: {
+      persistence: "durable with replication"
+      consistency: "strong consistency for critical data"
+      backup: "automated with point-in-time recovery"
+      scaling: "horizontal scaling with sharding"
+    },
+    error_handling: {
+      retry_logic: "exponential backoff with jitter"
+      dead_letter_queues: "separate queues for unprocessable messages"
+      alerting: "immediate notification for critical failures"
+      recovery: "automated recovery procedures"
+    }
+  }
+
+@workflow(name="DataProcessingPipeline", version="2.0")
+  description: "ETL pipeline for customer analytics"
   trigger: "scheduled"
-  schedule: "0 */4 * * *"
+  schedule: "0 */4 * * *"  # Every 4 hours
+  timeout: 3600  # 1 hour max execution
+  retry_policy:
+    max_attempts: 3
+    backoff: "exponential"
+    base_delay: 60
 
 @step(name="extract", order=1)
+  description: "Extract customer data from multiple sources"
   type: "parallel"
-  @source(type="postgresql", query="SELECT * FROM users")
-  @source(type="rest", url="https://api.service.com/data")
+  timeout: 900
 
-@step(name="transform", order=2, depends_on="extract")
-  @transform(type="lens", field="email", operations=["lower", "trim"])
+  source:
+    type: "postgresql"
+    query: """
+    SELECT
+      customer_id,
+      email,
+      signup_date,
+      last_login,
+      total_orders,
+      lifetime_value
+    FROM customers
+    WHERE updated_at >= '{{last_run_time}}'
+    """
+      |> dedent |> trim |> normalize_newlines
+    connection: "{{DB_CONNECTION_STRING}}"
 
-@step(name="load", order=3, depends_on="transform")
-  @destination(type="snowflake", table="analytics.users")
+  source:
+    type: "rest"
+    url: "https://api.customer-service.com/customers"
+    method: "GET"
+    headers:
+      Authorization: "Bearer {{API_TOKEN}}"
+      Content-Type: "application/json"
+    params:
+      since: "{{last_run_time}}"
+      limit: 1000
 ```
-**Use Case:** ETL pipelines with dependencies and monitoring
+**Use Case:** Complete workflow orchestration with anchors, extended scalars, and complex data processing
 
 #### **🧪 Data Validation & Testing**
 **File:** [`examples/data_validation.facet`](./examples/data_validation.facet)
 ```facet
-@test_suite(name="UserRegistration", version="1.1")
+@meta
+  id: "data-validation-testing-framework"
+  version: 1.0
+  author: "QA Automation Specialist"
+  tags: ["testing", "validation", "qa", "data-quality", "test-automation"]
 
-@test_case(name="valid_registration")
-  @input
-    user_data: {email: "user@example.com", password: "Secure123!"}
-  @expected_output
+@system(role="Senior QA Engineer", expertise="test_automation")
+  style: "Thorough, systematic, comprehensive, data-driven"
+  principles:
+    - "Test Pyramid Strategy (Unit > Integration > E2E)"
+    - "Behavior-Driven Development (BDD)"
+    - "Test Data Management"
+    - "Continuous Testing"
+    - "Quality Gates and Standards"
+  constraints:
+    - "Ensure 100% test reliability and determinism"
+    - "Cover all edge cases and boundary conditions"
+    - "Implement proper test isolation and cleanup"
+    - "Use realistic test data and scenarios"
+    - "Maintain test execution performance"
+
+  # Extended scalars for testing framework
+  test_execution_timeout: 300s           # Maximum test suite runtime
+  test_data_retention: 30d               # How long to keep test results
+  test_coverage_target: 85               # Minimum code coverage percentage
+  test_parallelization: 4                # Number of parallel test workers
+  test_retry_attempts: 2                 # Retry failed tests
+
+@user
+  task: "Design comprehensive data validation and testing framework"
+    |> trim
+
+  requirements:
+    test_types: ["unit", "integration", "system", "performance"]
+    coverage: "Complete edge case and boundary testing"
+    automation: "CI/CD integration with automated reporting"
+    data_quality: "Schema validation, constraint checking, integrity"
+    performance: "Fast test execution with parallelization"
+
+  # Complex testing framework architecture
+  testing_architecture: {
+    test_organization: {
+      pyramid_structure: {
+        unit_tests: "80% of test suite"
+        integration_tests: "15% of test suite"
+        e2e_tests: "5% of test suite"
+      },
+      test_categories: ["positive", "negative", "edge_case", "boundary", "security"]
+    },
+    data_management: {
+      test_data_generation: "Synthetic data with realistic patterns"
+      test_data_isolation: "Separate databases/schemas per test"
+      test_data_cleanup: "Automatic cleanup after test completion"
+      sensitive_data_masking: "PII protection in test environments"
+    },
+    quality_gates: {
+      code_coverage: "Minimum 85% branch coverage"
+      performance_regression: "No more than 5% degradation"
+      security_scan: "Zero critical vulnerabilities"
+      documentation: "All public APIs documented"
+    }
+  }
+
+@test_suite(name="UserRegistrationValidation", version="1.1")
+  description: "Comprehensive validation tests for user registration"
+  environment: "testing"
+  timeout: 300
+
+@test_case(name="valid_user_registration")
+  description: "Test successful user registration with valid data"
+  category: "positive"
+
+  input:
+    user_data:
+      email: "john.doe@example.com"
+      password: "SecurePass123!"
+      first_name: "John"
+      last_name: "Doe"
+      date_of_birth: "1990-05-15"
+      phone: "+1-555-0123"
+      preferences:
+        newsletter: true
+        notifications: "email"
+        language: "en"
+
+  expected_output:
     status: "success"
-    user_id: "user_abc123"
+    user_id: "user_abc123def456"
+    verification_token: "verify_xyz789"
+    email_sent: true
 
-@test_case(name="invalid_email")
-  @input_matrix
-    - email: ""
-    - email: "invalid-email"
-  @expected_output
-    status: "error"
-    error_code: "email_invalid"
+  validations:
+  - field: "user_id"
+    rule: "pattern"
+    pattern: "^user_[a-zA-Z0-9]{24}$"
+  - field: "verification_token"
+    rule: "length"
+    min: 32
+    max: 32
+  - field: "email_sent"
+      rule: "equals"
+      value: true
 ```
-**Use Case:** Comprehensive test suites with matrix testing
+**Use Case:** Complete testing framework with anchors, extended scalars, and comprehensive validation
 
 #### **📝 Basic Examples**
 - [`examples/recursion.facet`](./examples/recursion.facet) — Simple function documentation
 - [`examples/test_extended.facet`](./examples/test_extended.facet) — Extended scalars and anchors
 - [`examples/simplified_complex_test.facet`](./examples/simplified_complex_test.facet) — Complex data structures
+- [`examples/simple_demo.facet`](./examples/simple_demo.facet) — Minimal FACET example
+
+### 🎯 AI Agent Prompts (Advanced Examples)
+
+#### **💻 Frontend Development Agent**
+**File:** [`examples/frontend_developer.facet`](./examples/frontend_developer.facet)
+```facet
+@meta
+  id: "frontend-developer"
+  version: 1.0
+  author: "Frontend Architecture Specialist"
+  tags: ["frontend", "react", "typescript", "ui-ux", "performance"]
+
+@system(role="Senior Frontend Engineer", expertise="modern_frontend")
+  style: "Component-driven, accessible, performant, maintainable"
+  principles:
+    - "Component Composition over Inheritance"
+    - "Progressive Enhancement"
+    - "Mobile-First Responsive Design"
+    - "Accessibility First (WCAG 2.1 AA)"
+    - "Performance as Feature"
+
+  build_time_target: 30s
+  bundle_size_limit: 500KB
+  lighthouse_target: 90
+  accessibility_standard: "WCAG2.1AA"
+  browser_support_pattern: /^(Chrome|Firefox|Safari|Edge)\s\d+/
+
+@user
+  task: "Build a modern, accessible, and performant React application"
+    |> trim
+
+  requirements:
+    framework: "React 18 with TypeScript"
+    styling: "TailwindCSS with custom design system"
+    state_management: "Zustand for client state, React Query for server state"
+    routing: "React Router v6 with code splitting"
+    testing: "Jest + React Testing Library + Playwright"
+    deployment: "Vercel with CDN and edge functions"
+    monitoring: "Sentry for error tracking, Vercel Analytics for metrics"
+```
+**Use Case:** Complete frontend development workflow with React, TypeScript, performance optimization, and accessibility
+
+#### **🔒 Security Specialist Agent**
+**File:** [`examples/security_specialist.facet`](./examples/security_specialist.facet)
+```facet
+@meta
+  id: "security-specialist"
+  version: 1.0
+  author: "Security Architecture Expert"
+  tags: ["security", "owasp", "threat-modeling", "compliance", "risk-assessment"]
+
+@system(role="Chief Information Security Officer", expertise="enterprise_security")
+  style: "Defense-in-depth, risk-based, compliance-driven, proactive"
+  principles:
+    - "Zero Trust Architecture"
+    - "Defense in Depth"
+    - "Least Privilege Access"
+    - "Security by Design"
+    - "Continuous Security Monitoring"
+
+  security_assessment_frequency: 90d
+  vulnerability_response_time: 24h
+  encryption_key_rotation: 365d
+  access_review_frequency: 180d
+  security_incident_pattern: /^INC-\d{4}-\d{2}-\d{2}-\d{3}$/
+
+@user
+  task: "Design and implement comprehensive security architecture"
+    |> trim
+
+  requirements:
+    authentication: "Multi-factor authentication with biometrics"
+    authorization: "Role-based access control with fine-grained permissions"
+    data_protection: "End-to-end encryption with perfect forward secrecy"
+    network_security: "Zero trust network with micro-segmentation"
+    monitoring: "Real-time threat detection and automated response"
+    compliance: "GDPR, HIPAA, SOC2, PCI-DSS compliance frameworks"
+```
+**Use Case:** Complete security architecture with threat modeling, compliance, and enterprise security controls
+
+#### **⚡ Performance Engineer Agent**
+**File:** [`examples/performance_engineer.facet`](./examples/performance_engineer.facet)
+```facet
+@meta
+  id: "performance-engineer"
+  version: 1.0
+  author: "Performance Engineering Specialist"
+  tags: ["performance", "optimization", "scalability", "monitoring", "benchmarking"]
+
+@system(role="Senior Performance Engineer", expertise="system_performance")
+  style: "Data-driven, systematic, scalable, measurable"
+  principles:
+    - "Performance as Architecture"
+    - "Measure Everything"
+    - "Bottleneck-Driven Optimization"
+    - "Scalability Patterns"
+    - "Continuous Performance Monitoring"
+
+  response_time_sla: 100ms
+  throughput_target: 1000rps
+  error_budget: 0.001
+  ttfb_target: 500ms
+  lighthouse_score_target: 90
+  performance_budget_pattern: /^\d+(ms|rps|KB|MB)$/
+
+@user
+  task: "Design and optimize high-performance system architecture"
+    |> trim
+
+  requirements:
+    scalability: "Auto-scaling from 10 to 10,000 concurrent users"
+    performance: "Sub-100ms response times at scale"
+    reliability: "99.99% uptime with graceful degradation"
+    monitoring: "Real-time performance metrics and alerting"
+    optimization: "Continuous performance improvement"
+```
+**Use Case:** Complete performance engineering with monitoring, optimization, and scalability planning
+
+#### **📝 Technical Writer Agent**
+**File:** [`examples/technical_writer.facet`](./examples/technical_writer.facet)
+```facet
+@meta
+  id: "technical-writer"
+  version: 1.0
+  author: "Technical Documentation Specialist"
+  tags: ["documentation", "api-docs", "user-guides", "technical-writing", "diagrams"]
+
+@system(role="Senior Technical Writer", expertise="technical_documentation")
+  style: "Clear, concise, comprehensive, user-focused"
+  principles:
+    - "Write for the Reader, Not the Writer"
+    - "Progressive Disclosure of Information"
+    - "Active Voice and Clear Language"
+    - "Consistency in Terminology and Style"
+    - "Comprehensive yet Concise"
+
+  documentation_update_frequency: 7d
+  readability_score_target: 60
+  content_coverage_target: 95
+  review_cycle_duration: 14d
+  documentation_age_limit: 365d
+  version_pattern: /^v\d+\.\d+\.\d+$/
+
+@user
+  task: "Create comprehensive technical documentation for software system"
+    |> trim
+
+  requirements:
+    audience: "Developers, system administrators, product managers"
+    deliverables: "API docs, user guides, architecture docs, deployment guides"
+    format: "Markdown with diagrams, interactive examples"
+    maintenance: "Automated documentation updates with CI/CD"
+    accessibility: "WCAG 2.1 AA compliant documentation"
+```
+**Use Case:** Complete technical writing workflow with documentation architecture, content strategy, and maintenance
+
+#### **🔧 Code Refactoring Agent**
+**File:** [`examples/code_refactoring_assistant.facet`](./examples/code_refactoring_assistant.facet)
+```facet
+@meta
+  id: "code-refactoring-assistant"
+  version: 1.0
+  author: "Expert Prompt Engineer"
+  tags: ["refactoring", "clean-code", "SOLID", "code-improvement"]
+
+@system(role="Senior Software Architect", expertise="code_refactoring")
+  style: "Professional, methodical, educational"
+  principles:
+    - "Clean Code by Robert Martin"
+    - "SOLID principles"
+    - "DRY (Don't Repeat Yourself)"
+    - "KISS (Keep It Simple, Stupid)"
+
+  constraints:
+    - "Preserve original functionality"
+    - "Maintain backward compatibility"
+    - "Improve without breaking changes"
+    - "Document all modifications"
+
+@user
+  task: """
+    Improve code architecture and readability without changing behavior.
+    Apply clean code principles and SOLID design patterns.
+    Eliminate duplication, redundancy, and excessive nesting.
+    Ensure consistent style and clear naming conventions.
+    Always document changes made in comments.
+  """
+    |> dedent |> trim
+```
+**Use Case:** Code refactoring and quality improvement with SOLID principles and clean code practices
 - [`tests/complete_test.facet`](./tests/complete_test.facet) — Full language features test
 
 ### 🎯 Example Categories
 
 | Category | Complexity | Use Case | Files |
 |----------|------------|----------|-------|
-| **AI/ML** | Medium-High | Prompt engineering, contracts | `ai_prompt.facet` |
-| **API Design** | High | Contract definition, validation | `api_contract.facet` |
-| **DevOps** | Medium | Configuration management | `config_management.facet` |
-| **Data Engineering** | High | ETL orchestration | `workflow_orchestration.facet` |
-| **QA/Testing** | Very High | Validation suites | `data_validation.facet` |
-| **Learning** | Low-Medium | Language basics | `recursion.facet`, `test_extended.facet` |
+| **🤖 AI/ML** | Medium-High | Prompt engineering, contracts | `ai_prompt.facet`, `facet_complete_demo.facet` |
+| **🔧 API Design** | High | Contract definition, validation | `api_contract.facet` |
+| **⚙️ DevOps** | Medium | Configuration management | `config_management.facet` |
+| **🔄 Data Engineering** | High | ETL orchestration | `workflow_orchestration.facet` |
+| **🧪 QA/Testing** | Very High | Validation suites | `data_validation.facet` |
+| **💻 Frontend Development** | High | React/TypeScript, performance | `frontend_developer.facet` |
+| **🔒 Security** | Very High | Threat modeling, compliance | `security_specialist.facet` |
+| **⚡ Performance** | High | Optimization, scalability | `performance_engineer.facet` |
+| **📝 Technical Writing** | Medium | Documentation, guides | `technical_writer.facet` |
+| **🔧 Code Quality** | Medium | Refactoring, best practices | `code_refactoring_assistant.facet` |
+| **🗄️ Database Design** | High | Schema design, optimization | `database_architecture_specialist.facet` |
+| **🔄 CI/CD Automation** | Medium | Testing automation | `test_automation_engineer.facet` |
+| **☁️ Cloud Infrastructure** | High | IaC, deployment | `devops_infrastructure_engineer.facet` |
+| **📚 Learning** | Low-Medium | Language basics | `recursion.facet`, `test_extended.facet`, `simple_demo.facet`, `simplified_complex_test.facet` |
+
+### 📊 FACET Examples Statistics
+
+| Metric | Value |
+|--------|-------|
+| **Total Examples** | 20 .facet files |
+| **AI Agent Prompts** | 10 specialized roles |
+| **Use Cases Covered** | 14 different domains |
+| **Language Features** | All 9 facets + extended scalars + anchors + lenses |
+| **Code Examples** | TypeScript, Python, Go, YAML, SQL |
+| **Complexity Levels** | Low to Very High |
+| **Documentation Quality** | Production-ready examples |
 
 ### 🔧 Working with Examples
 
@@ -653,7 +1226,7 @@ prompt_data = parser.parse_facet(content)
 ### 📖 More Examples
 
 For additional examples and documentation, see:
-- **[`examples/README.md`](https://github.com/rokoss21/FACET/blob/main/examples/README.md)** — Complete examples guide with 6 use cases
+- **[`examples/README.md`](https://github.com/rokoss21/FACET/blob/main/examples/README.md)** — Complete examples guide with 20 comprehensive use cases
 - **[`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md)** — Language specification and grammar
 - **[`specs/FACET-SPEC-v1.0-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-SPEC-v1.0-r1.md)** — Quick reference specification
 - **[GitHub Repository](https://github.com/rokoss21/FACET)** — Latest examples and community contributions
@@ -671,7 +1244,7 @@ For additional examples and documentation, see:
 - 📜 **Full Spec (r1)** — [`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md)
 - 📄 **Short Spec (r1)** — [`specs/FACET-SPEC-v1.0-r1.md`](https://github.com/rokoss21/FACET/blob/main/specs/FACET-SPEC-v1.0-r1.md)  
 - 🧰 **Parser** — `src/facet/parser.py`, `src/facet/lenses.py`, `src/facet/errors.py`, `src/facet/cli.py`  
-- 🧪 **Examples** — `examples/*.facet` (convert to JSON with `facet to-json`)
+- 🧪 **Examples** — `examples/*.facet` (20 comprehensive use cases: AI agents, API design, DevOps, security, performance, documentation)
 
 ---
 
@@ -750,7 +1323,7 @@ Structured errors recommended (code, message, location):
 
 #### 📖 Documentation & Examples
 - ✅ **Language Specification** - FACET v1.0 formal grammar and rules
-- ✅ **Interactive Examples** - 6 comprehensive use cases with working code
+- ✅ **Interactive Examples** - 20 comprehensive use cases with working code
 - ✅ **MkDocs Setup** - Documentation infrastructure prepared (rokoss21.github.io/FACET)
 - ✅ **CONTRIBUTING.md** - Complete developer onboarding guide
 - 🚀 **Extended Documentation** - Planned comprehensive guides and tutorials
