@@ -46,17 +46,17 @@ Every `.facet` document has **one single valid JSON representation**, making FAC
 ### How FACET Works
 
 ```
-+----------------+      +------------------+      +-----------------+
-|                |      |                  |      |                 |
-|  .facet file   | ===> |   FACET Parser   | ===> | Canonical JSON  |
-| (Source Text)  |      | (Lenses, Contracts)|      |  (Output)       |
-|                |      |                  |      |                 |
-+----------------+      +------------------+      +-----------------+
-       │                       │                       │
-       ├─ Facets (@user)       ├─ Data Transforms     ├─ Deterministic
-       ├─ Attributes (name="") ├─ Schema Validation   ├─ Reproducible
-       ├─ Lenses (|> trim)     ├─ Type Checking       └─ Tool-Ready
-       └─ Contracts (@output)  └─ Error Handling
++------------------+     +------------------+     +-----------------+
+|                  |     |                  |     |                 |
+|   .facet file    | --> |   FACET Parser   | --> | Canonical JSON  |
+|  (Source Text)   |     | (Lenses,         |     |   (Output)      |
+|                  |     |  Contracts)      |     |                 |
++------------------+     +------------------+     +-----------------+
+        |                        |                       |
+        |-- Facets (@user)       |-- Data Transforms     |-- Deterministic
+        |-- Attributes (name="") |-- Schema Validation   |-- Reproducible
+        |-- Lenses (|> trim)     |-- Type Checking       |-- Tool-Ready
+        |-- Contracts (@output)  |-- Error Handling      |-- Always Valid
 ```
 
 ---
