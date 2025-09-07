@@ -862,9 +862,13 @@ Structured errors recommended (code, message, location):
 - **`apply_lenses`** - Apply deterministic text transformations (100% reliable)
 - **`validate_schema`** - Validate JSON data against schemas
 
-[![PyPI version](https://img.shields.io/pypi/v/facet-mcp-server.svg?color=blue)](https://pypi.org/project/facet-mcp-server/)
-[![Python versions](https://img.shields.io/pypi/pyversions/facet-mcp-server.svg)](https://pypi.org/project/facet-mcp-server/)
-[![Downloads](https://img.shields.io/pypi/dm/facet-mcp-server.svg?color=green)](https://pypi.org/project/facet-mcp-server/)
+**✅ Fully tested with 70 passing tests** | **🚀 Available on npm & PyPI**
+
+[![npm version](https://img.shields.io/npm/v/facet-mcp-server.svg?color=blue)](https://www.npmjs.com/package/facet-mcp-server)
+[![PyPI version](https://img.shields.io/pypi/v/facet-mcp-server.svg)](https://pypi.org/project/facet-mcp-server/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tests](https://img.shields.io/badge/✅_Tests-70_passed-brightgreen?style=for-the-badge)](https://github.com/rokoss21/FACET_mcp#testing)
 [![Performance](https://img.shields.io/badge/⚡_Performance-3.7x_faster-red?style=for-the-badge)](https://github.com/rokoss21/FACET_mcp#performance)
 [![WebSocket](https://img.shields.io/badge/🌐_Transport-WebSocket-green?style=for-the-badge)](https://github.com/rokoss21/FACET_mcp#architecture)
 
@@ -873,7 +877,10 @@ Structured errors recommended (code, message, location):
 ### **🚀 Get Started**
 
 ```bash
-# Install FACET MCP Server (опубликовано на PyPI!)
+# 🚀 RECOMMENDED: Install via npm (JavaScript/TypeScript)
+npm install facet-mcp-server
+
+# Alternative: Install via pip (Python)
 pip install facet-mcp-server
 
 # Start server
@@ -882,14 +889,20 @@ facet-mcp start
 # View available tools
 facet-mcp tools
 
-# Connect AI agents
+# Connect AI agents (JavaScript/TypeScript)
+import { MCPClient } from 'facet-mcp-server';
+const client = new MCPClient();
+await client.connect();
+
+# Connect AI agents (Python)
 python -c "from facet_mcp.protocol.transport import MCPClient; import asyncio; asyncio.run(MCPClient().connect('ws://localhost:3000'))"
 ```
 
 ### **📚 Complete Documentation**
 **[🔗 FACET MCP Server Repository](https://github.com/rokoss21/FACET_mcp)** - Full documentation, examples, and source code
 
-**📦 [PyPI Package](https://pypi.org/project/facet-mcp-server/)** - Direct installation from Python Package Index
+**📦 [npm Package](https://www.npmjs.com/package/facet-mcp-server)** - JavaScript/TypeScript installation
+**📦 [PyPI Package](https://pypi.org/project/facet-mcp-server/)** - Python installation
 
 ---
 ## 🚀 SIMD Performance Optimizations
