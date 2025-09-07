@@ -239,10 +239,18 @@ Structured errors recommended (code, message, location):
 
 **Emil Rokossovskiy** — [@rokoss21](https://github.com/rokoss21)  
 📧 ecsiar@gmail.com  
-© 2025 Emil Rokossovskiy. All rights reserved.
+© 2025 Emil Rokossovskiy
 
 ---
 
 ## 📄 License
 
-TBD. Until a license is published, **all rights reserved**.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+The MIT License is a permissive open source license that allows:
+- ✅ **Commercial use** - You can use the software for commercial purposes
+- ✅ **Modification** - You can modify the software
+- ✅ **Distribution** - You can distribute the software
+- ✅ **Private use** - You can use the software privately
+- ⚠️ **Liability** - No warranty or liability from the author
+- ⚠️ **Trademark** - No trademark rights granted
