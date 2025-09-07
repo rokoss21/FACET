@@ -1,0 +1,53 @@
+@meta(id="complex-test", version=1.0)
+  title: "Complex FACET Test"
+  description: """
+  This is a comprehensive test of FACET features:
+  - Multiple facets with attributes
+  - All data types and extended scalars
+  - Anchors and aliases
+  - Lenses with pipelines
+  - Nested structures
+  - JSON schema validation
+  """ |> dedent |> trim |> limit(500)
+  author: "Test Generator"
+  tags: ["test", "complex"]
+  created: @2024-12-07T15:00:00Z
+
+@system(role="Expert")
+  name &bot_name: "Test Assistant"
+  version: 1.0
+  style: *bot_name
+  capabilities: ["analysis", "code", "math"]
+  timeout: 60s
+  memory: 256MB
+
+@assistant
+  role: "Helper"
+  prompt: """
+  You are a helpful assistant.
+  Provide accurate and useful responses.
+  """ |> dedent |> trim
+
+@user
+  query: "Test FACET parsing"
+  data:
+    format: "json"
+    size: 1024
+
+@plan
+  - "Parse input"
+  - "Process request"
+  - "Generate response"
+
+@output(format="json", required=true)
+  description: "Response schema"
+  schema: ```json
+  {
+    "type": "object",
+    "required": ["result"],
+    "properties": {
+      "result": {"type": "string"},
+      "confidence": {"type": "number"}
+    }
+  }
+  ``` |> json_parse

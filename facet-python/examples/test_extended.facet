@@ -1,0 +1,21 @@
+@meta
+  id: "test-extended"
+  version: 1.0
+
+@system
+  style &friendly: "Polite, helpful"
+  apply_style: *friendly
+  timestamp: @2024-01-01T12:00:00Z
+  duration: 5m
+  size: 1024KB
+  pattern: /test/i
+
+@user
+  request: "Test extended features"
+  # This is an inline comment
+  data:
+    - item1
+    - item2
+
+@output
+  format: "json"

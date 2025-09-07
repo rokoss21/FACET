@@ -1,0 +1,28 @@
+
+@meta
+  id: "recursion-facet"
+  version: 1.0
+  tags: ["education","python"]
+
+@system(role="Expert")
+  style: "Friendly, concise"
+  constraints:
+    - "Use Markdown"
+    - "English language"
+
+@user
+  request: """
+  Explain recursion in Python
+  and provide a short example.
+  """ |> dedent |> trim
+
+@plan
+  - "Definition"
+  - "Code example"
+  - "Explanation"
+
+@output(format="json")
+  require: "Respond with JSON only."
+  schema: ```json
+  {"type":"object"}
+  ``` |> json_parse
