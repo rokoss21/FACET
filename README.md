@@ -862,8 +862,9 @@ Structured errors recommended (code, message, location):
 - **`apply_lenses`** - Apply deterministic text transformations (100% reliable)
 - **`validate_schema`** - Validate JSON data against schemas
 
-[![PyPI version](https://img.shields.io/pypi/v/facet-mcp-server.svg)](https://pypi.org/project/facet-mcp-server/)
+[![PyPI version](https://img.shields.io/pypi/v/facet-mcp-server.svg?color=blue)](https://pypi.org/project/facet-mcp-server/)
 [![Python versions](https://img.shields.io/pypi/pyversions/facet-mcp-server.svg)](https://pypi.org/project/facet-mcp-server/)
+[![Downloads](https://img.shields.io/pypi/dm/facet-mcp-server.svg?color=green)](https://pypi.org/project/facet-mcp-server/)
 [![Performance](https://img.shields.io/badge/⚡_Performance-3.7x_faster-red?style=for-the-badge)](https://github.com/rokoss21/FACET_mcp#performance)
 [![WebSocket](https://img.shields.io/badge/🌐_Transport-WebSocket-green?style=for-the-badge)](https://github.com/rokoss21/FACET_mcp#architecture)
 
@@ -872,11 +873,14 @@ Structured errors recommended (code, message, location):
 ### **🚀 Get Started**
 
 ```bash
-# Install FACET MCP Server
+# Install FACET MCP Server (опубликовано на PyPI!)
 pip install facet-mcp-server
 
 # Start server
 facet-mcp start
+
+# View available tools
+facet-mcp tools
 
 # Connect AI agents
 python -c "from facet_mcp.protocol.transport import MCPClient; import asyncio; asyncio.run(MCPClient().connect('ws://localhost:3000'))"
@@ -884,6 +888,8 @@ python -c "from facet_mcp.protocol.transport import MCPClient; import asyncio; a
 
 ### **📚 Complete Documentation**
 **[🔗 FACET MCP Server Repository](https://github.com/rokoss21/FACET_mcp)** - Full documentation, examples, and source code
+
+**📦 [PyPI Package](https://pypi.org/project/facet-mcp-server/)** - Direct installation from Python Package Index
 
 ---
 ## 🚀 SIMD Performance Optimizations
