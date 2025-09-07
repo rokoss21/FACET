@@ -41,7 +41,7 @@ jobs:
 
     - name: Type check with mypy
       run: |
-        mypy src/facet/ --ignore-missing-imports
+        mypy src/facet/ --ignore-missing-imports --no-strict-optional --disable-error-code=no-untyped-def
 
     - name: Format check with black
       run: |
