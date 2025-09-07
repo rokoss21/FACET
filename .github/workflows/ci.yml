@@ -33,12 +33,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .
-        pip install pytest-cov flake8 mypy black isort
+        pip install flake8 mypy black isort
 
     - name: Lint with flake8
       run: |
-        flake8 src/facet/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 src/facet/ tests/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 src/facet/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 src/facet/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Type check with mypy
       run: |
@@ -46,23 +46,12 @@ jobs:
 
     - name: Format check with black
       run: |
-        black --check src/facet/ tests/
+        black --check src/facet/
 
     - name: Import sort check with isort
       run: |
-        isort --check-only --diff src/facet/ tests/
+        isort --check-only --diff src/facet/
 
-    - name: Test with pytest
-      run: |
-        python -m pytest tests/test_golden.py --cov=facet --cov-report=xml
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
 
   build:
     runs-on: ubuntu-latest

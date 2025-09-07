@@ -165,7 +165,6 @@ Thumbs.db
 # FACET specific
 *.json
 !examples/*.json
-!tests/*.json
 
 # Archive directory (contains moved clutter)
 archive/

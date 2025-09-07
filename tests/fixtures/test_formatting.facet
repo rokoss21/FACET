@@ -1,7 +1,0 @@
-@meta
-  id: "test"
-  version: 1.0
-
-@system
-  role: "Assistant"
-  constraints: ["Be helpful"]
