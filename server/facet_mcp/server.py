@@ -11,10 +11,10 @@ import logging
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
 
-from .core.facets import FACETEngine
-from .core.validator import SchemaValidator
-from .protocol.messages import MCPMessage, ToolCall, ToolResult
-from .protocol.transport import MCPTransport
+from facet_mcp.core.facets import FACETEngine
+from facet_mcp.core.validator import SchemaValidator
+from facet_mcp.protocol.messages import MCPMessage, ToolCall, ToolResult
+from facet_mcp.protocol.transport import MCPTransport
 
 logger = logging.getLogger(__name__)
 
