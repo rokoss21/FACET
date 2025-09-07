@@ -20,7 +20,7 @@
 [![PyPI downloads](https://img.shields.io/pypi/dm/facet-lang.svg)](https://pypi.org/project/facet-lang/)
 [![Python versions](https://img.shields.io/pypi/pyversions/facet-lang.svg)](https://pypi.org/project/facet-lang/)
 [![License](https://img.shields.io/pypi/l/facet-lang.svg)](https://github.com/rokoss21/FACET/blob/main/LICENSE)
-[![CI](https://github.com/rokoss21/FACET/actions/workflows/ci.yml/badge.svg)](https://github.com/rokoss21/FACET/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/badge/CI-Coming%20Soon-orange)](#)
 [![Coverage](https://codecov.io/gh/rokoss21/FACET/branch/main/graph/badge.svg)](https://codecov.io/gh/rokoss21/FACET)
 
 [![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](https://github.com/rokoss21/FACET/blob/main/specs/FACET-Language-Spec-v1.0-FULL-r1.md)
