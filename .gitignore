@@ -166,3 +166,40 @@ Thumbs.db
 *.json
 !examples/*.json
 !tests/*.json
+
+# Archive directory (contains moved clutter)
+archive/
+
+# Additional Python ignores
+*.pkl
+*.pickle
+*.npy
+*.npz
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.conda/
+conda_env/
+
+# IDE and editor files
+*.swp
+*.swo
+*~
+.project
+.settings/
+.vscode/settings.json
+.idea/
+
+# OS generated files
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini

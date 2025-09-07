@@ -1,6 +1,0 @@
-pyproject.toml
-facet_python_ref.egg-info/PKG-INFO
-facet_python_ref.egg-info/SOURCES.txt
-facet_python_ref.egg-info/dependency_links.txt
-facet_python_ref.egg-info/entry_points.txt
-facet_python_ref.egg-info/top_level.txt
