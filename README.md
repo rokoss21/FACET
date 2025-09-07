@@ -1,6 +1,11 @@
 # FACET — Feature‑Aware Contracted Extension for Text
 **A deterministic markup language for AI instructions**
 
+[![PyPI version](https://img.shields.io/pypi/v/facet-lang.svg)](https://pypi.org/project/facet-lang/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/facet-lang.svg)](https://pypi.org/project/facet-lang/)
+[![Python versions](https://img.shields.io/pypi/pyversions/facet-lang.svg)](https://pypi.org/project/facet-lang/)
+[![License](https://img.shields.io/pypi/l/facet-lang.svg)](https://github.com/rokoss21/FACET/blob/main/LICENSE)
+
 [![spec](https://img.shields.io/badge/spec-v1.0%20(r1)-4c1)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)
 [![status](https://img.shields.io/badge/status-final-success)](./specs/FACET-Language-Spec-v1.0-FULL-r1.md#editorial--normative-updates-in-r1)
 [![mime](https://img.shields.io/badge/MIME-application%2Ffacet-blue)](#-media-type)
@@ -54,7 +59,7 @@ FACET is not “just another config format”. It is a **prompt‑first contract
 
 ## 📖 Syntax Snapshot
 
-```facet
+````facet
 @system(role="Expert", version=1)
   style: "Friendly, concise"
   constraints:
@@ -80,8 +85,8 @@ FACET is not “just another config format”. It is a **prompt‑first contract
         "explanation": {"type": "string"}
       }
     }
-  ```
-```
+    ```
+````
 
 ✅ Human‑readable • ✅ Tool‑friendly • ✅ Guaranteed canonical JSON
 
@@ -102,23 +107,40 @@ FACET is not “just another config format”. It is a **prompt‑first contract
 
 FACET ships with both a **CLI** and a **library API**.
 
-### Install (local dev)
+### Install from PyPI (recommended)
 
 ```bash
-# Clone
+# Install the latest stable version
+pip install facet-lang
+
+# Or install with optional dependencies
+pip install facet-lang[dev,docs]  # For development
+pip install facet-lang[all]       # For everything
+```
+
+### Install from source (development)
+
+```bash
+# Clone repository
 git clone https://github.com/rokoss21/FACET.git
 cd FACET
 
-# (Optional) create venv
+# (Optional) create virtual environment
 python -m venv .venv && source .venv/bin/activate
 
-# Install in editable mode
+# Install in editable mode for development
 pip install -e .
 ```
 
 ### CLI Usage
 
-After installation you’ll have a `facet` command (or use `python -m facet.cli`).
+After installation you'll have a `facet` command (or use `python -m facet.cli`).
+
+**Available commands:**
+- `facet to-json` — Convert FACET to canonical JSON
+- `facet validate` — Validate against `@output.schema`
+- `facet fmt` — Format FACET files
+- `facet lint` — Check for errors with structured codes
 
 ```bash
 # Convert FACET → canonical JSON
@@ -157,6 +179,75 @@ print(json.dumps(ast, ensure_ascii=False, indent=2))
 ```
 
 > **Note:** `parser.to_json(text)` expects **source text**. If you already have an AST from `parse_facet`, dump it with `json.dumps`.
+
+---
+
+## 🎯 Use Cases
+
+### 🤖 AI Prompt Engineering
+```python
+from facet import parser
+
+# Parse structured prompt with contracts
+prompt = parser.parse_facet("""
+@system(role="Code Reviewer", version=1)
+  style: "Thorough, constructive"
+  constraints:
+    - "Use markdown formatting"
+    - "Focus on maintainability"
+
+@user
+  code: """
+  def fibonacci(n):
+      if n <= 1:
+          return n
+      return fibonacci(n-1) + fibonacci(n-2)
+  """
+    |> dedent |> trim
+
+@output(format="json")
+  schema: {"type": "object", "required": ["issues", "rating"]}
+""")
+
+# Use in your AI pipeline
+ai_response = call_llm_with_structured_prompt(prompt)
+```
+
+### ⚙️ Configuration Management
+```bash
+# Validate configuration files
+facet validate config.facet
+
+# Convert to JSON for your app
+facet to-json config.facet > config.json
+```
+
+### 🔧 API Contract Definition
+```facet
+@api(endpoint="/users", method="POST")
+  description: "Create new user account"
+  timeout: 30
+  retries: 3
+
+@input
+  schema: {
+    "type": "object",
+    "required": ["email", "name"],
+    "properties": {
+      "email": {"type": "string", "format": "email"},
+      "name": {"type": "string", "minLength": 2}
+    }
+  }
+
+@output(status=201)
+  schema: {
+    "type": "object",
+    "properties": {
+      "id": {"type": "integer"},
+      "created_at": {"type": "string", "format": "date-time"}
+    }
+  }
+```
 
 ---
 
