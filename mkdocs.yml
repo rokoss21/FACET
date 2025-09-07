@@ -72,14 +72,6 @@ plugins:
   - search
   - mermaid2
   - macros
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: timeago
-  - git-committers:
-      repository: rokoss21/FACET
-      branch: main
-  - minify:
-      minify_html: true
 
 markdown_extensions:
   - abbr

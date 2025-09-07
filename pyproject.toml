@@ -4,33 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "facet-lang"
-version = "1.0.0"
+version = "1.0.1"
 description = "FACET v1.0 — Deterministic markup for AI instructions"
 readme = "README.md"
-license = "MIT"
-requires-python = ">=3.9"
-authors = [
-  {name = "Emil Rokossovskiy", email = "ecsiar@gmail.com"}
-]
-maintainers = [
-  {name = "Emil Rokossovskiy", email = "ecsiar@gmail.com"}
-]
-keywords = ["ai", "markup", "deterministic", "parser", "facets", "lenses"]
-classifiers = [
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Developers",
-  "Intended Audience :: Science/Research",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Topic :: Software Development :: Libraries :: Python Modules",
-  "Topic :: Text Processing :: Markup",
-  "Topic :: Scientific/Engineering :: Artificial Intelligence"
-]
-dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["facet*"]
 
 [project.optional-dependencies]
 dev = [
@@ -56,9 +35,6 @@ Documentation = "https://facet-lang.readthedocs.io/"
 Repository = "https://github.com/rokoss21/FACET"
 Issues = "https://github.com/rokoss21/FACET/issues"
 Changelog = "https://github.com/rokoss21/FACET/blob/main/CHANGELOG.md"
-
-[tool.setuptools.packages.find]
-include = ["facet*"]
 
 [project.scripts]
 facet = "facet.cli:main"
