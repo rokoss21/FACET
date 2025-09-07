@@ -1,6 +1,21 @@
 # FACET — Feature‑Aware Contracted Extension for Text
 **A deterministic markup language for AI instructions**
 
+```
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║                ███████╗ █████╗  ██████╗███████╗████████╗               ║
+║                ██╔════╝██╔══██╗██╔════╝██╔════╝╚══██╔══╝               ║
+║                █████╗  ███████║██║     █████╗     ██║                  ║
+║                ██╔══╝  ██╔══██║██║     ██╔══╝     ██║                  ║
+║                ██║     ██║  ██║╚██████╗███████╗   ██║                  ║
+║                ╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝   ╚═╝                  ║
+║                                                                      ║
+║           Feature-Aware Contracted Extension for Text                ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+```
+
 [![PyPI version](https://img.shields.io/pypi/v/facet-lang.svg)](https://pypi.org/project/facet-lang/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/facet-lang.svg)](https://pypi.org/project/facet-lang/)
 [![Python versions](https://img.shields.io/pypi/pyversions/facet-lang.svg)](https://pypi.org/project/facet-lang/)
@@ -27,6 +42,22 @@ It merges the **clarity of plain text** with the **rigor of code**:
 - Lossless **canonical mapping to JSON**
 
 Every `.facet` document has **one single valid JSON representation**, making FACET ideal for **reproducible AI pipelines** and **tooling ecosystems**.
+
+### How FACET Works
+
+```
++----------------+      +------------------+      +-----------------+
+|                |      |                  |      |                 |
+|  .facet file   | ===> |   FACET Parser   | ===> | Canonical JSON  |
+| (Source Text)  |      | (Lenses, Contracts)|      |  (Output)       |
+|                |      |                  |      |                 |
++----------------+      +------------------+      +-----------------+
+       │                       │                       │
+       ├─ Facets (@user)       ├─ Data Transforms     ├─ Deterministic
+       ├─ Attributes (name="") ├─ Schema Validation   ├─ Reproducible
+       ├─ Lenses (|> trim)     ├─ Type Checking       └─ Tool-Ready
+       └─ Contracts (@output)  └─ Error Handling
+```
 
 ---
 
@@ -214,7 +245,55 @@ python -m venv .venv && source .venv/bin/activate
 pip install -e .
 ```
 
-### CLI Usage
+---
+
+## ⚡ Quickstart: Your First FACET in 60 Seconds
+
+### 1. Install FACET
+```bash
+pip install facet-lang
+```
+
+### 2. Create your first FACET file (`greeting.facet`)
+```facet
+@user(name="Alex")
+  message: "Hello, world!"
+
+@output
+  schema: {"type": "object", "required": ["greeting"]}
+```
+
+### 3. Convert to JSON
+```bash
+facet to-json greeting.facet
+```
+
+### 4. See the result! ✨
+```json
+{
+  "user": {
+    "_attrs": {
+      "name": "Alex"
+    },
+    "message": "Hello, world!"
+  },
+  "output": {
+    "_attrs": {},
+    "schema": {
+      "type": "object",
+      "required": [
+        "greeting"
+      ]
+    }
+  }
+}
+```
+
+**Congratulations!** 🎉 You've just created your first FACET document and converted it to canonical JSON. This demonstrates the core FACET features: **facets**, **attributes**, and **guaranteed canonical JSON output**.
+
+---
+
+## 🛠 CLI Usage
 
 After installation you'll have a `facet` command (or use `python -m facet.cli`).
 
@@ -583,6 +662,37 @@ Structured errors recommended (code, message, location):
 - Reference SDKs: **TypeScript**, **Python**, **Rust**
 - LSP for **VS Code**, **Zed**, **Neovim**
 - More lenses (e.g., `slugify`, `escape_json`, `hash(alg)`)
+
+---
+
+## 🤝 Contributing
+
+FACET is an open-source project and we welcome contributions from the community! Whether it's reporting a bug, proposing a new feature, or submitting a pull request, your help is valued.
+
+Please read our **[Contributing Guidelines](CONTRIBUTING.md)** to get started.
+
+### Ways to Contribute
+- **🐛 Report a Bug:** Open an issue with a clear description and steps to reproduce
+- **✨ Suggest a Feature:** Start a discussion on the GitHub Discussions tab
+- **📖 Improve Documentation:** Help make docs clearer and add examples
+- **🛠️ Submit a Pull Request:** We welcome PRs for bug fixes, new lenses, or improvements
+- **🎯 Add Tests:** Improve test coverage and add edge case testing
+
+---
+
+## 💬 Community & Support
+
+Have a question or want to share an idea?
+
+- **💬 [GitHub Discussions](https://github.com/rokoss21/FACET/discussions):** Best place for questions, feature proposals, and sharing what you've built with FACET
+- **🐛 [GitHub Issues](https://github.com/rokoss21/FACET/issues):** For reporting bugs and tracking development tasks
+- **📖 [Documentation](https://github.com/rokoss21/FACET/tree/main/docs):** Comprehensive guides and API reference
+
+### Stay Connected
+- **⭐ Star** this repository to show your support
+- **👁️ Watch** for updates and new releases
+- **🔄 Fork** to contribute your own improvements
+- **📣 Share** FACET with your network
 
 ---
 
