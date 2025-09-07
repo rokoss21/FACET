@@ -928,6 +928,8 @@ normalize_newlines_100kb: Baseline optimized
 trim_1kb: Baseline optimized
 ```
 
+> **📋 Performance Note:** SIMD optimizations are intelligently applied only to larger text blocks where they provide significant speedup. For very small strings (like in `trim_1kb`), the overhead of the optimized path is slightly higher than the baseline Python implementation, so FACET gracefully uses the fastest method for the given input size.
+
 **Memory Usage:**
 - Low memory overhead (< 2MB per MB input)
 - Efficient memory scaling with input size
