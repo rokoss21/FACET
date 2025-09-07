@@ -43,7 +43,89 @@ FACET was born from the limitations of YAML, JSON, and ad‑hoc prompt formats u
 | Poor readability for prompts | Multiline strings & fenced blocks |
 | Inconsistent round‑trip | One canonical JSON, always lossless |
 
-FACET is not “just another config format”. It is a **prompt‑first contract language** — a bridge between humans and machines in AI systems.
+FACET is not "just another config format". It is a **prompt‑first contract language** — a bridge between humans and machines in AI systems.
+
+---
+
+## ⚖️ Comparison with Alternatives
+
+FACET stands out from traditional data formats by addressing modern development challenges:
+
+| Feature | YAML | JSON | TOML | **FACET** |
+|---------|------|------|------|-----------|
+| **Contracts & Schemas** | ❌ External validation | ❌ No built-in schemas | ❌ Limited validation | ✅ **JSON Schema integration** |
+| **Data Transformations** | ❌ No built-in transforms | ❌ No transformations | ❌ No transformations | ✅ **Pure lenses** (`|> trim |> json_parse`) |
+| **AI Prompt Engineering** | ❌ Not designed for AI | ❌ Verbose for prompts | ❌ Not suitable | ✅ **Structured prompts with contracts** |
+| **API Contract Definition** | ❌ No contract support | ❌ No contract support | ❌ No contract support | ✅ **Complete API specifications** |
+| **Configuration Management** | ⚠️ Basic templating | ❌ No templating | ⚠️ Basic templating | ✅ **Advanced templating** (`{{VAR_NAME}}`) |
+| **Workflow Orchestration** | ❌ No workflow support | ❌ No workflow support | ❌ No workflow support | ✅ **Built-in workflow definitions** |
+| **Multiline Strings** | ✅ Good support | ❌ Escaping required | ⚠️ Basic support | ✅ **Fenced blocks** (`````) |
+| **Comments** | ✅ Full support | ❌ No comments | ✅ Full support | ✅ **Semantic comments** |
+| **Deterministic Parsing** | ❌ Ambiguous scalars | ✅ Deterministic | ✅ Deterministic | ✅ **Always one canonical JSON** |
+| **Tooling Ecosystem** | ✅ Mature tools | ✅ Universal support | ⚠️ Limited tools | 🚀 **Growing AI-first ecosystem** |
+
+### 🎯 Why Choose FACET?
+
+#### **For AI/ML Teams:**
+- **Structured Prompts:** Guarantee consistent AI responses with `@output` contracts
+- **Version Control:** Track prompt evolution with semantic versioning
+- **Data Processing:** Built-in lenses for prompt preprocessing and cleanup
+
+#### **For API Developers:**
+- **Contract-First:** Define complete API specifications in one place
+- **Automatic Validation:** Built-in request/response validation
+- **Documentation Generation:** Generate docs from FACET specifications
+
+#### **For DevOps Teams:**
+- **Configuration as Code:** Structured, validated configurations
+- **Secret Management:** Template variables for sensitive data
+- **Environment Consistency:** Same config format across all environments
+
+#### **For Data Engineers:**
+- **ETL Orchestration:** Define complex data pipelines with dependencies
+- **Quality Assurance:** Built-in data validation and monitoring
+- **Error Handling:** Comprehensive error recovery and alerting
+
+### 💡 Real-World Impact:
+
+**Before FACET:**
+```yaml
+# YAML - ambiguous and limited
+user:
+  name: "John"
+  age: 30  # Is this a number or string?
+  description: |
+    Multi-line text
+    with formatting
+
+# No built-in validation
+# No transformations
+# No contracts for AI responses
+```
+
+**With FACET:**
+```facet
+@user
+  name: "John"
+  age: 30
+  description: """
+    Multi-line text
+    with formatting
+    """
+    |> dedent |> trim
+
+@output
+  schema: {
+    "type": "object",
+    "properties": {
+      "name": {"type": "string"},
+      "age": {"type": "number"},
+      "description": {"type": "string"}
+    }
+  }
+```
+
+**Result:** Clear contracts, data transformations, guaranteed structure, AI-ready format.
 
 ---
 
