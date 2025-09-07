@@ -335,11 +335,189 @@ facet to-json config.facet > config.json
 
 ## 🧪 Examples
 
-- [`examples/recursion.facet`](./examples/recursion.facet) (convert to JSON with `facet to-json`)  
-- More comprehensive samples:
-  - [`complete_test.facet`](./tests/complete_test.facet)
-  - [`test_extended.facet`](./examples/test_extended.facet)
-  - [`simplified_complex_test.facet`](./examples/simplified_complex_test.facet)
+### 🚀 Quick Examples
+
+#### **Basic Usage**
+```bash
+# Convert FACET to JSON
+facet to-json examples/recursion.facet > output.json
+
+# Validate FACET file
+facet lint examples/recursion.facet
+
+# Format FACET file
+facet fmt examples/recursion.facet
+```
+
+### 📚 Comprehensive Examples
+
+#### **🤖 AI Prompt Engineering**
+**File:** [`examples/ai_prompt.facet`](./examples/ai_prompt.facet)
+```facet
+@system(role="Code Reviewer", version=1)
+  style: "Thorough, constructive"
+  constraints:
+    - "Use markdown formatting"
+    - "Focus on maintainability"
+
+@user
+  task: "Review this Python function"
+  code: "def func(): pass" |> trim
+
+@output(format="json")
+  schema: {"type": "object", "required": ["issues", "rating"]}
+```
+**Use Case:** Structured AI prompts with guaranteed JSON responses
+
+#### **🔧 API Contract Definition**
+**File:** [`examples/api_contract.facet`](./examples/api_contract.facet)
+```facet
+@endpoint(path="/users", method="POST")
+  description: "Create user account"
+  authentication: "bearer_token"
+
+  @request
+    body: {
+      "type": "object",
+      "required": ["email", "name"],
+      "properties": {
+        "email": {"type": "string", "format": "email"}
+      }
+    }
+
+  @response(status=201)
+    body: {
+      "type": "object",
+      "properties": {
+        "user_id": {"type": "string"}
+      }
+    }
+```
+**Use Case:** Complete API specifications with validation
+
+#### **⚙️ Configuration Management**
+**File:** [`examples/config_management.facet`](./examples/config_management.facet)
+```facet
+@database
+  host: "prod-db.cluster.rds.amazonaws.com"
+  credentials:
+    username: "{{DB_USER}}"
+    password: "{{DB_PASSWORD}}"
+  ssl_mode: "require"
+
+@cache
+  type: "redis"
+  url: "{{REDIS_URL}}"
+
+@external_services
+  payment_gateway:
+    provider: "stripe"
+    api_key: "{{STRIPE_SECRET_KEY}}"
+```
+**Use Case:** Production configuration with secret templating
+
+#### **🔄 Workflow Orchestration**
+**File:** [`examples/workflow_orchestration.facet`](./examples/workflow_orchestration.facet)
+```facet
+@workflow(name="DataPipeline", version="2.0")
+  trigger: "scheduled"
+  schedule: "0 */4 * * *"
+
+@step(name="extract", order=1)
+  type: "parallel"
+  @source(type="postgresql", query="SELECT * FROM users")
+  @source(type="rest", url="https://api.service.com/data")
+
+@step(name="transform", order=2, depends_on="extract")
+  @transform(type="lens", field="email", operations=["lower", "trim"])
+
+@step(name="load", order=3, depends_on="transform")
+  @destination(type="snowflake", table="analytics.users")
+```
+**Use Case:** ETL pipelines with dependencies and monitoring
+
+#### **🧪 Data Validation & Testing**
+**File:** [`examples/data_validation.facet`](./examples/data_validation.facet)
+```facet
+@test_suite(name="UserRegistration", version="1.1")
+
+@test_case(name="valid_registration")
+  @input
+    user_data: {email: "user@example.com", password: "Secure123!"}
+  @expected_output
+    status: "success"
+    user_id: "user_abc123"
+
+@test_case(name="invalid_email")
+  @input_matrix
+    - email: ""
+    - email: "invalid-email"
+  @expected_output
+    status: "error"
+    error_code: "email_invalid"
+```
+**Use Case:** Comprehensive test suites with matrix testing
+
+#### **📝 Basic Examples**
+- [`examples/recursion.facet`](./examples/recursion.facet) — Simple function documentation
+- [`examples/test_extended.facet`](./examples/test_extended.facet) — Extended scalars and anchors
+- [`examples/simplified_complex_test.facet`](./examples/simplified_complex_test.facet) — Complex data structures
+- [`tests/complete_test.facet`](./tests/complete_test.facet) — Full language features test
+
+### 🎯 Example Categories
+
+| Category | Complexity | Use Case | Files |
+|----------|------------|----------|-------|
+| **AI/ML** | Medium-High | Prompt engineering, contracts | `ai_prompt.facet` |
+| **API Design** | High | Contract definition, validation | `api_contract.facet` |
+| **DevOps** | Medium | Configuration management | `config_management.facet` |
+| **Data Engineering** | High | ETL orchestration | `workflow_orchestration.facet` |
+| **QA/Testing** | Very High | Validation suites | `data_validation.facet` |
+| **Learning** | Low-Medium | Language basics | `recursion.facet`, `test_extended.facet` |
+
+### 🔧 Working with Examples
+
+#### **Convert Examples to JSON**
+```bash
+# Convert specific example
+facet to-json examples/ai_prompt.facet > ai_prompt.json
+
+# Convert all examples
+for f in examples/*.facet; do
+  facet to-json "$f" > "${f%.facet}.json"
+done
+```
+
+#### **Validate Examples**
+```bash
+# Lint all examples
+facet lint examples/*.facet
+
+# Check for syntax errors
+find examples -name "*.facet" -exec facet lint {} \;
+```
+
+#### **Integration Testing**
+```python
+from facet import parser
+
+# Load and parse example
+with open('examples/ai_prompt.facet', 'r') as f:
+    content = f.read()
+
+# Convert to JSON
+json_output = parser.to_json(content)
+
+# Use in your application
+prompt_data = parser.parse_facet(content)
+```
+
+### 📖 More Examples
+
+For additional examples and detailed documentation, see:
+- **[`examples/README.md`](./examples/README.md)** — Complete examples guide
+- **[`specs/FACET-Language-Spec-v1.0-FULL-r1.md`](./specs/FACET-Language-Spec-v1.0-FULL-r1.md)** — Full specification with examples
+- **[GitHub Repository](https://github.com/rokoss21/FACET)** — Latest examples and community contributions
 
 ---
 
