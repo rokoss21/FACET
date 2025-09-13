@@ -129,7 +129,7 @@ For the complete FACET v1.1 (Draft r3) language specification, see `FACET_LANGUA
 - Requirements: Python >= 3.9
 - Install from PyPI:
 ```bash
-pip install facet-lang==0.0.1
+pip install facet-lang
 ```
 
 Notes:
