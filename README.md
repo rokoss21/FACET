@@ -15,6 +15,12 @@
 [![ext](https://img.shields.io/badge/ext-.facet-blueviolet)](#)
 [![author](https://img.shields.io/badge/author-Emil%20Rokossovskiy-0aa)](https://github.com/rokoss21)
 
+<!-- PyPI badges -->
+[![PyPI version](https://img.shields.io/pypi/v/facet-lang.svg)](https://pypi.org/project/facet-lang/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/facet-lang.svg)](https://pypi.org/project/facet-lang/)
+[![Python versions](https://img.shields.io/pypi/pyversions/facet-lang.svg)](https://pypi.org/project/facet-lang/)
+[![License](https://img.shields.io/pypi/l/facet-lang.svg)](https://github.com/rokoss21/FACET/blob/main/LICENSE)
+
 ---
 
 ## ✨ What is FACET?
@@ -24,6 +30,24 @@
 Every FACET document compiles to a **single canonical JSON** — no YAML-style ambiguity, no hidden magic. Version **v1.1** turns FACET into a **compile-time configuration language** with modularity, logic, static typing, and a pure transformation pipeline (*lenses*).
 
 ---
+
+## 🧠 How FACET Works
+
+```
++------------------+     +------------------+     +-----------------+
+|                  |     |                  |     |                 |
+|   .facet file    | --> |   FACET Parser   | --> |  Canonical JSON |
+|   (Source Text)  |     | (Lenses,         |     |     (Output)    |
+|                  |     |  Contracts)      |     |                 |
++------------------+     +------------------+     +-----------------+
+        |                        |                       |
+        |-- Facets (@user)       |-- Data transforms     |-- Deterministic
+        |-- Attributes (name="") |-- Schema validation   |-- Reproducible
+        |-- Lenses (|> trim)     |-- Type checking       |-- Tool‑ready
+        |-- Contracts (@output)  |-- Error handling      |-- Always valid
+```
+
+At authoring time you write readable `.facet` files. The reference parser expands imports, resolves variables, applies conditionals, validates types/contracts, and executes pure lens pipelines — producing a single canonical JSON that downstream tools can rely on.
 
 ## 🚀 The Innovation (Why Now, Why FACET)
 
