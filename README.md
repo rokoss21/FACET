@@ -33,12 +33,7 @@ Every FACET document compiles to a **single canonical JSON** — no YAML-style a
 
 ### ⚡ Your First Dynamic Prompt in 60 Seconds
 
-Experience the power of conditional logic right from your terminal.
-
-1.  Install FACET:
-    ```bash
-    pip install facet-lang
-    ```
+Experience compile-time logic without leaving your terminal.
 
 2.  Create a dynamic `.facet` file:
     ```bash
@@ -227,6 +222,30 @@ Modern AI stacks drown in a mix of ad-hoc prompts, brittle scripts, and ambiguou
 ```bash
 pip install facet-lang
 ```
+
+### ⚡ 60-second dynamic prompt (after install)
+
+1. Create a file:
+   ```bash
+   cat > my_prompt.facet << EOF
+   @vars
+     mode: "user"
+
+   @system(if="mode == 'expert'")
+     role: "You are a world-class computer science professor."
+
+   @user
+     request: "Explain recursion to me."
+   EOF
+   ```
+2. Run in "user" mode (no system block):
+   ```bash
+   facet canon --var "mode=user" my_prompt.facet
+   ```
+3. Run in "expert" mode (system appears):
+   ```bash
+   facet canon --var "mode=expert" my_prompt.facet
+   ```
 
 **Python API**
 
