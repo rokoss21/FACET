@@ -218,14 +218,14 @@ Use it as a system message in your agent/tooling to **generate FACET natively**.
 
 ## ❓ FAQ (Objections You Might Have)
 
-**“Зачем отдельный язык? Можно YAML + JSONSchema.”**
-YAML остаётся неоднозначным и требует внешнего клея/скриптов. FACET даёт **единый детерминированный конвейер**: импорты → типизация → условия → линзы → канонический JSON.
+**“Why a dedicated language? Why not YAML + JSONSchema?”**
+YAML remains ambiguous and typically requires external glue/scripts. FACET provides a **single deterministic pipeline** end‑to‑end: imports → typing → conditionals → lenses → canonical JSON.
 
-**“Почему не Cue/Jsonnet?”**
-Они общие. FACET — целевой для AI: `@output` контракты, встроенные линзы, семантика условий, запреты на I/O/рандом, детерминированность «из коробки».
+**“Why not Cue/Jsonnet?”**
+They are general‑purpose. FACET is purpose‑built for AI: `@output` contracts, built‑in lenses, explicit conditional semantics, bans on I/O/randomness, and determinism out of the box.
 
-**“Как не сломать безопасность?”**
-Спецификация включает sandbox и запреты (см. §12). Линзы — чистые функции без I/O, импорты — по allowlist, переменные — только явно от хоста.
+**“How do we keep it secure?”**
+The spec includes sandboxing and restrictions (see §12). Lenses are pure (no I/O), imports are allowlisted, and variables are only provided explicitly by the host.
 
 ---
 
