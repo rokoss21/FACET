@@ -49,6 +49,8 @@ Every FACET document compiles to a **single canonical JSON** — no YAML-style a
 
 At authoring time you write readable `.facet` files. The reference parser expands imports, resolves variables, applies conditionals, validates types/contracts, and executes pure lens pipelines — producing a single canonical JSON that downstream tools can rely on.
 
+---
+
 ## 🚀 The Innovation (Why Now, Why FACET)
 
 Modern AI stacks drown in a mix of ad-hoc prompts, brittle scripts, and ambiguous configs. FACET replaces that with **contracts and determinism**.
