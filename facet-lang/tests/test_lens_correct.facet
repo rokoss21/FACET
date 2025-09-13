@@ -1,0 +1,7 @@
+@vars
+  items: ["a", "b", "c"]
+
+@user
+  good_choose: $items |> choose(seed=42)
+  good_shuffle: $items |> shuffle(seed=42)
+  bad_choose: $items |> choose

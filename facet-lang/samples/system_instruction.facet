@@ -1,0 +1,54 @@
+@var_types
+  seed: { type: int, min: 1 }
+  language: { type: string, enum: ["en","ru"] }
+
+@vars
+  seed: 42
+  language: "en"
+  user:
+    tier: "pro"
+  features_enabled: true
+
+@system
+  constraints:
+    - "Output ONLY FACET. No prose."
+    - "Indentation: 2 spaces. No tabs."
+    - "Deterministic seeds for lenses."
+
+@guide
+  output_contract:
+    - "Output ONLY FACET code"
+    - "End with newline"
+    - "Keep identifiers concise; quote strings with \""
+  syntax_cheatsheet:
+    header: ["@name [&anchor] (k=v, ...)? then newline + body", "attrs allow string|number|boolean|null|ident; NO $, ${}, {{}} in attrs", "facet if must be quoted"]
+    key_value: ["key: value |> lens() |> lens()", "nested block under key:"]
+    lists: ["- value (if=\"...\")? |> lens(...)", "only 'if' attr allowed on list item"]
+    inline: ["map: { k: v }", "list: [1,2,3]"]
+    fences:
+      example: """
+        def f(x):
+          return x*x
+      """ |> dedent |> trim
+    lenses:
+      builtins: ["trim","dedent","squeeze_spaces","limit","lower","upper","replace","regex_replace","choose","shuffle"]
+      notes: ["choose/shuffle require seed", "kwargs must be literals (e.g., seed=42)"]
+    vars_interp: ["@vars defines values", "scalar: $name or ${a.b}", "interpolation: \"Hello, {{user.name}}\""]
+    types: ["@var_types supports string|int|float|bool|array|object", "constraints enum/min/max/pattern"]
+    imports: ["@import \"path\" or @import(path=..., strategy=merge|replace)", "no absolute paths/URLs"]
+    anchors: ["&name before *name", "prefer same-facet anchors"]
+  hard_rules: ["Do NOT pipe inside inline map/list entries", "Apply lenses to full KV or list items", "Lens kwargs must be literals (no identifiers)", "No interpolation in attributes", "No alias before anchor; no redefinition", "Inline lists must be single-line; use block lists for multi-line", "Do not nest fences; prefer triple-quoted strings for deeply nested examples", "All variables used in if/$/{{}} must be declared in @vars first", "No lenses on aliases (*name) or anchored meta-objects"]
+
+@examples
+  lists: ["alpha", "beta"]
+  fence:
+    ```python
+    def f(x):
+      return x*x
+    ``` |> dedent |> trim
+  vars:
+    seed: 42
+    mode: "expert"
+    greeting_choices: ["hi","hello","hey"]
+    greeting: $greeting_choices |> choose(seed=42)
+  anchors: [ { q: "What?", a: "Answer." }, { q: "What?", a: "Answer." } ]

@@ -1,0 +1,63 @@
+@import(path="samples/common/system_prompts.facet")
+
+@var_types
+  seed: { type: int, min: 1 }
+  mode: { type: string, enum: ["expert","novice"] }
+  profile.name: { type: string, pattern: "[A-Z][a-zA-Z]+" }
+  features: { type: array }
+  request.max_bytes: { type: int, min: 10, max: 1000 }
+
+@vars
+  seed: 1337
+  mode: "expert"
+  profile:
+    name: "Alice"
+  features: ["syntax","lenses","vars","anchors"]
+  request:
+    max_bytes: 64
+  greeting_choices: ["hello","hi","hey","howdy"]
+  greeting: $greeting_choices |> choose(seed=2024)
+
+@system(if="true")
+  constraints:
+    - "Generate FACET only"
+    - "Use 2-space indentation"
+    - "Deterministic lenses with seeds"
+
+@dataset &DS
+  meta:
+    title: "Complex Example"
+    author: "{{profile.name}}"
+  prompts:
+    - &QA { q: "What is FACET?", a: "A DSL for structured prompts." }
+    - { q: "What is FACET?", a: "A DSL for structured prompts." }
+    - { q: "Mode?", a: "Mode is {{mode}}." }
+  code:
+    ```python
+    def hello(name):
+      return f"Hello, {name}"
+    ``` |> dedent |> trim
+
+@content
+  title: "Greeting: {{greeting}}"
+  intro: "Welcome, {{profile.name}}"
+  ids_inline: [1,2,3,4,5] |> shuffle(seed=999)
+  letters_inline: ["a","b","c","d"] |> shuffle(seed=999)
+  normalized:
+    text: "  Some   text   with     spaces  " |> squeeze_spaces |> trim |> lower
+  limited:
+    text: "0123456789abcdef" |> limit(8)
+  transformed:
+    text: "Fast API" |> replace(" ", "_") |> upper |> regex_replace("FAST_API", "FAST-API")
+  script:
+    ```bash
+    echo Start
+      echo Inner
+    echo End
+    ``` |> dedent |> trim
+  pairs:
+    - &P { name: "X", value: 1 }
+    - *P
+    - { name: "Y", value: 2 } (if="mode == 'expert'")
+
+

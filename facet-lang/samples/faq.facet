@@ -1,0 +1,38 @@
+@var_types
+  seed: { type: int, min: 1 }
+  language: { type: string, enum: ["en","ru"] }
+  user_name: { type: string }
+  feature_flags: { type: array }
+
+@vars
+  seed: 42
+  language: "en"
+  user_name: "Alex"
+  feature_flags: ["syntax","lenses","vars"]
+  hello_variants: ["Hello","Hi","Hey"]
+  hello: $hello_variants |> choose(seed=42)
+
+@system
+  constraints:
+    - "Output FACET only, no prose"
+    - "Use 2-space indentation"
+    - "Deterministic choices with seeds"
+
+@faq(if="language == 'en'")
+  title: "FACET FAQ"
+  version: 1
+  greet_line: "{{hello}}, {{user_name}}!"
+  categories: ["syntax","lenses","vars"]
+  entries:
+    - &qa1 { q: "What is FACET?", a: "A DSL for structured prompts." }
+    - *qa1
+    - { q: "How to define variables?", a: "Use @vars with keys and values." }
+    - { q: "How to use lenses?", a: "Append |> lens(args) to values." }
+    - { q: "How to add conditional items?", a: "Use (if=\"expr\") on list items." }
+  code_sample:
+    ```facet
+    @example
+      key: "value"
+    ``` |> dedent |> trim
+
+

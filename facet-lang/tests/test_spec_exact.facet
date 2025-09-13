@@ -1,0 +1,7 @@
+@vars
+  username: "Alex"
+  retries: 3
+  env: "prod"
+
+@user
+  prompt: "Hello, {{username}}! Env={{env}}. Retries={{retries}}."

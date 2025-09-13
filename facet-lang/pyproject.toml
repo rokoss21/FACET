@@ -1,0 +1,43 @@
+[project]
+name = "facet-lang"
+version = "0.0.2"
+requires-python = ">=3.9"
+description = "FACET v1.1 (r3) parser/canonizer skeleton"
+authors = [{name="Emil Rokossovsky", email="ecsiar@gmail.com"}]
+readme = "README.md"
+license = "MIT"
+keywords = ["FACET", "markup", "AI", "deterministic", "parser", "DSL"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Compilers",
+  "Topic :: Text Processing :: Markup",
+]
+
+license-files = ["LICENSE"]
+
+[project.urls]
+Homepage = "https://github.com/rokoss21/FACET"
+Repository = "https://github.com/rokoss21/FACET"
+"Issue Tracker" = "https://github.com/rokoss21/FACET/issues"
+Documentation = "https://github.com/rokoss21/FACET/blob/main/FACET_LANGUAGE_SPEC.md"
+
+[project.scripts]
+facet = "facet_lang.cli:main"
+
+[build-system]
+requires = ["setuptools>=77.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["facet_lang*"]
+exclude = ["tests*", "samples*"]
+
+[tool.pytest.ini_options]
+addopts = "-q"

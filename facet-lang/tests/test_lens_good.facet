@@ -1,0 +1,6 @@
+@vars
+  items: ["a", "b", "c"]
+
+@user
+  chosen: $items |> choose(seed=42)
+  shuffled: $items |> shuffle(seed=42)

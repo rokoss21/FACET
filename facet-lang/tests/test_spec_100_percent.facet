@@ -1,0 +1,40 @@
+@vars
+  username: "Alex"
+  retries: 3
+  env: "prod"
+  greeting_choices: ["hi", "hello", "hey"]
+  features: ["recursion", "tail-calls"]
+  mode: "expert"
+
+@var_types
+  username: { type: "string" }
+  retries: { type: "int", min: 0, max: 5 }
+  env: { type: "string", enum: ["dev", "staging", "prod"] }
+
+@system &core_system
+  role: "Deep Technical Expert"
+  environment: "{{env}}"
+  retry_limit: "{{retries}}"
+
+@user
+  prompt: "Hello, {{username}}! Env={{env}}. Retries={{retries}}."
+  greeting: $greeting_choices |> choose(seed=42)
+  features_shuffled: $features |> shuffle(seed=123)
+  
+@assistant
+  system: *core_system
+  response: "Ready to help {{username}}"
+  
+@plan
+  steps:
+    - "Introduction"
+    - "Tail recursion details" (if="'tail-calls' in features")
+    - "Expert-level analysis" (if="mode == 'expert'")
+
+@output
+  format: "markdown"
+  security:
+    ```yaml
+    validation: strict
+    user_content: sanitized
+    ```

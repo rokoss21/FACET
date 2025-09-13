@@ -1,0 +1,85 @@
+@import(path="samples/common/system_prompts.facet", strategy="merge")
+
+@var_types
+  seed: { type: int, min: 1, max: 1000000 }
+  mode: { type: string, enum: ["expert","novice"] }
+  profile.name: { type: string, pattern: "[A-Z][a-zA-Z]+" }
+
+@vars
+  seed: 123
+  mode: "expert"
+  profile:
+    name: "Alice"
+    age: 30
+  greeting_choices: ["hi","hello","hey"]
+  greeting: $greeting_choices |> choose(seed=42)
+
+@meta &root
+  info:
+    title: "Complex FACET Test"
+    version: 1
+  flags:
+    - &f1 "alpha"
+    - "beta"
+    - "alpha"
+
+@user(if="mode == 'expert'")
+  prompt: "Hello, {{profile.name}}! Mode={{mode}}. Greeting={{greeting}}."
+  context:
+    - { k: "role", v: "engineer" }
+    - { k: "project", v: "FACET" }
+  code:
+    ```python
+    def square(x):
+      return x*x
+    ``` |> dedent |> trim
+  list:
+    - "alpha" (if="true")
+    - "beta" (if="false")
+    - "gamma" (if="mode == 'expert'")
+
+@plan &p1(role=Architect, if="mode == 'expert'")
+  steps:
+    - "Intro"
+    - "Deep dive" |> upper
+    - { name: "Finalize", done: false }
+
+@reuse
+  ref: "p1"
+  root: "root"
+
+@matrix
+  items:
+    - { id: 1, vals: [1,2,3] }
+    - { id: 2, vals: ["a","b","c"] }
+  vals_num_inline: [1,2,3] |> shuffle(seed=123)
+  chars_inline: ["a","b","c"] |> shuffle(seed=123)
+
+@import(path="samples/common/system_prompts.facet")
+
+@vars
+  seed: 42
+  mode: "expert"
+  features: ["recursion", "tail-calls"]
+  username: "Alex"
+  cfg:
+    lang: "ru"
+  greeting_choices: ["hi","hello","hey"]
+  greeting: $greeting_choices |> choose(seed=42)
+@user
+  prompt: "Hello, {{username}}! Lang={{cfg.lang}}. Greeting={{greeting}}."
+  examples:
+    - &ex { q: "What is recursion?", a: "Recursion is..." }
+    - *ex
+  code: ```
+def f(x):
+  return x*x
+``` |> dedent |> trim
+  list:
+    - "alpha" (if="mode == 'expert'")
+    - "beta" (if="false")
+@plan(role=Architect, if="'recursion' in features")
+  steps:
+    - "Intro"
+    - "Deep dive" |> upper
+

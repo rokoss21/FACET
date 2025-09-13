@@ -1,0 +1,29 @@
+@import "samples/common/system_prompts.facet"
+
+@vars
+  seed: 42
+  mode: "expert"
+  username: "Alex"
+  greeting_choices: ["hi","hello","hey"]
+  greeting: $greeting_choices |> choose(seed=42)
+
+@user
+  prompt: "Hello, {{username}}! Mode={{mode}}. Greeting={{greeting}}."
+  examples:
+    - &ex { q: "What is recursion?", a: "Recursion is calling itself." }
+    - *ex
+  code:
+    ```
+    def f(x):
+      return x*x
+    ``` |> dedent |> trim
+  list:
+    - "alpha" (if="mode == 'expert'")
+    - "beta" (if="false")
+
+@plan(role=Architect, if="mode == 'expert'")
+  steps:
+    - "Intro"
+    - "Deep dive" |> upper
+
+
