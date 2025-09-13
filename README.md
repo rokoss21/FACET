@@ -118,6 +118,12 @@ The compile-time directives (`@import`, `@vars`, `@var_types`) **do not appear**
 
 ---
 
+## 📚 Full Language Specification
+
+For the complete FACET v1.1 (Draft r3) language specification, see `FACET_LANGUAGE_SPEC.md`.
+
+---
+
 ## 📦 Installation
 
 - Requirements: Python >= 3.9
