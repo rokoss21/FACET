@@ -31,37 +31,6 @@ Every FACET document compiles to a **single canonical JSON** — no YAML-style a
 
 ---
 
-### ⚡ Your First Dynamic Prompt in 60 Seconds
-
-Experience compile-time logic without leaving your terminal.
-
-2.  Create a dynamic `.facet` file:
-    ```bash
-    cat > my_prompt.facet << EOF
-    @vars
-      # Try changing the default to "expert" and re-running!
-      mode: "user"
-
-    @system(if="mode == 'expert'")
-      role: "You are a world-class computer science professor."
-
-    @user
-      request: "Explain recursion to me."
-    EOF
-    ```
-
-3.  Canonize it in "user" mode:
-    ```bash
-    facet canon --var "mode=user" my_prompt.facet
-    ```
-    Notice the JSON output has no `@system` block.
-
-4.  Now, canonize it in "expert" mode:
-    ```bash
-    facet canon --var "mode=expert" my_prompt.facet
-    ```
-    And now the `@system` block appears — you've just used compile-time logic.
-
 ## 🧠 How FACET Works
 
 ```
