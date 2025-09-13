@@ -65,16 +65,16 @@ Modern AI stacks drown in a mix of ad-hoc prompts, brittle scripts, and ambiguou
 
 ## 🥊 FACET vs. Existing Options
 
-| Capability / Tooling                       | YAML + JSONSchema | Jsonnet/Cue | Templating (Jinja/Mustache) |                **FACET** |          |
-| ------------------------------------------ | ----------------: | ----------: | --------------------------: | -----------------------: | -------- |
-| Canonical, deterministic serialization     |        ⚠️ Depends |           ✅ |            ❌ (runtime text) |                    **✅** |          |
-| Contract-first (enforce model output)      |  🟡 External glue |          🟡 |                           ❌ |          **✅ `@output`** |          |
-| Compile-time imports & deterministic merge |        🟡 Plugins |          🟡 |                           ❌ |          **✅ `@import`** |          |
-| Static typing for variables                |   🟡 Schema hacks |           ✅ |                           ❌ |       **✅ `@var_types`** |          |
-| Conditional inclusion (no runtime eval)    |                🟡 |           ✅ |       ⚠️ Runtime templating |        **✅ `if="EXPR"`** |          |
-| Pure pipelines for text/JSON transforms    |                 ❌ |          🟡 |                           ❌ |         **✅ Lenses (<code>|></code>)** |          |
-| Deterministic randomness (seeded)          |                 ❌ |          🟡 |                           ❌ | **✅ `choose`/`shuffle`** |          |
-| Sandbox for user plugins                   |  ⚠️ Tool-specific |          🟡 |                           ❌ |         **✅ (spec §12)** |          |
+| Capability / Tooling                       | YAML + JSONSchema | Jsonnet/Cue | Templating (Jinja/Mustache) | **FACET** |
+| ------------------------------------------ | ----------------: | ----------: | --------------------------: | --------: |
+| Canonical, deterministic serialization     |        ⚠️ Depends |           ✅ |            ❌ (runtime text) |       **✅** |
+| Contract-first (enforce model output)      |  🟡 External glue |          🟡 |                           ❌ | **✅ `@output`** |
+| Compile-time imports & deterministic merge |        🟡 Plugins |          🟡 |                           ❌ | **✅ `@import`** |
+| Static typing for variables                |   🟡 Schema hacks |           ✅ |                           ❌ | **✅ `@var_types`** |
+| Conditional inclusion (no runtime eval)    |                🟡 |           ✅ |       ⚠️ Runtime templating | **✅ `if="EXPR"`** |
+| Pure pipelines for text/JSON transforms    |                 ❌ |          🟡 |                           ❌ | **✅ Lenses (<code>|></code>)** |
+| Deterministic randomness (seeded)          |                 ❌ |          🟡 |                           ❌ | **✅ `choose`/`shuffle`** |
+| Sandbox for user plugins                   |  ⚠️ Tool-specific |          🟡 |                           ❌ | **✅ (spec §12)** |
 
 > FACET combines the **readability of config** with the **guarantees of a DSL** that’s purpose-built for AI orchestration.
 
