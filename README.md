@@ -48,7 +48,7 @@ Modern AI stacks drown in a mix of ad-hoc prompts, brittle scripts, and ambiguou
 | Compile-time imports & deterministic merge |        🟡 Plugins |          🟡 |                           ❌ |          **✅ `@import`** |          |
 | Static typing for variables                |   🟡 Schema hacks |           ✅ |                           ❌ |       **✅ `@var_types`** |          |
 | Conditional inclusion (no runtime eval)    |                🟡 |           ✅ |       ⚠️ Runtime templating |        **✅ `if="EXPR"`** |          |
-| Pure pipelines for text/JSON transforms    |                 ❌ |          🟡 |                           ❌ |         **✅ Lenses (`|>`)** |          |
+| Pure pipelines for text/JSON transforms    |                 ❌ |          🟡 |                           ❌ |         **✅ Lenses (`&#124;>`)** |          |
 | Deterministic randomness (seeded)          |                 ❌ |          🟡 |                           ❌ | **✅ `choose`/`shuffle`** |          |
 | Sandbox for user plugins                   |  ⚠️ Tool-specific |          🟡 |                           ❌ |         **✅ (spec §12)** |          |
 
